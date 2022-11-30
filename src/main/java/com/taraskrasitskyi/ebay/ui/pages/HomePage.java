@@ -1,18 +1,20 @@
 package com.taraskrasitskyi.ebay.ui.pages;
 
+import com.codeborne.selenide.Selenide;
 import com.taraskrasitskyi.ebay.ui.elements.TopMenu;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePage {
 
-    public HomePage(WebDriver driver) {
-       super(driver);
+    @Step ("HomePage : open eBay home page")
+    public HomePage open(){
+        Selenide.open("https://www.ebay.com/");
+        return this;
     }
 
-    @Step("Get top menu")
+    @Step("HomePage : get top menu")
     public TopMenu getTopMenu() {
-        return new TopMenu(driver);
+        return new TopMenu();
     }
 
 }

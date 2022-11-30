@@ -1,16 +1,18 @@
-package com.taraskrasitsky.ebay.ui;
+package com.taraskrasitskyi.ebay.ui;
 
-import com.taraskrasitsky.ebay.utils.ExpectedDataReader;
-import com.taraskrasitsky.ebay.utils.TestRunner;
+import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.elements.ShopByCategoryMenu;
 import com.taraskrasitskyi.ebay.ui.pages.CategoryPage;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
+import com.taraskrasitskyi.ebay.utils.ExpectedDataReader;
+import com.taraskrasitskyi.ebay.utils.TestRunner;
 import io.qameta.allure.Description;
 import io.qameta.allure.TmsLink;
-import org.openqa.selenium.WebElement;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShopByCategoryTest extends TestRunner {
 
@@ -18,7 +20,7 @@ public class ShopByCategoryTest extends TestRunner {
     @Description("Verify that the user can open each main category from the ShopByCategory menu")
     @TmsLink(value = "SEL-3")
     public void verifyThatCategoriesOpen() {
-        HomePage homePage = new HomePage(driver);
+        var homePage = new HomePage().open();
         int categoriesCount = homePage
                 .getHeader()
                 .openShopByCategoryMenu()
@@ -28,17 +30,19 @@ public class ShopByCategoryTest extends TestRunner {
         ExpectedDataReader edReader = new ExpectedDataReader("src/test/resources/expecteddata/verifyThatCategoriesOpen_expected.csv");
         List<String> expectedLinkTexts = edReader.getColumn(1);
         List<String> expectedPageHeaders = edReader.getColumn(2);
+        var softAssert = new SoftAssertions();
         for (int i = 0; i < categoriesCount; i++) {
             shopByCategoryMenu = homePage
                     .getHeader()
                     .openShopByCategoryMenu();
-            List<WebElement> categoriesList = shopByCategoryMenu.getMenuMainItemsList();
+            List<SelenideElement> categoriesList = shopByCategoryMenu.getMenuMainItemsList();
             categoryPage = shopByCategoryMenu.openCategory(categoriesList.get(i));
-            softAssert.assertEquals(categoryPage.getLastChainNavigateLinkText(), expectedLinkTexts.get(i),
-                    "Assert last chain links text is failed");
-            softAssert.assertEquals(categoryPage.getPageCaption(), expectedPageHeaders.get(i),
-                    "Assert page caption is failed");
-            homePage = categoryPage.getHomePage();
+            softAssert.assertThat(categoryPage.getLastChainNavigateLinkText())
+                    .as("Assert last chain links text is failed")
+                    .isEqualTo(expectedLinkTexts.get(i));
+            softAssert.assertThat(categoryPage.getPageCaption())
+                    .as("Assert page caption is failed")
+                    .isEqualTo(expectedPageHeaders.get(i));
         }
         softAssert.assertAll();
     }
@@ -47,30 +51,32 @@ public class ShopByCategoryTest extends TestRunner {
     @Description("Verify that the user can open the \"See All Categories\" link from the ShopByCategory menu")
     @TmsLink(value = "SEL-4")
     public void verifyThatSeeAllCategoriesOpens() {
-        CategoryPage seeAllCategories = new HomePage(driver)
+        var seeAllCategories = new HomePage()
+                .open()
                 .getHeader()
                 .openShopByCategoryMenu()
                 .openSeeAllCategories();
-        softAssert.assertEquals(seeAllCategories.getPageCaption(), "All Categories",
-                "Assert page caption is failed");
-        seeAllCategories.getHomePage();
-        softAssert.assertAll();
+        assertThat(seeAllCategories.getPageCaption())
+                .as("Assert page caption is failed")
+                .isEqualTo("All Categories");
     }
-
 
     @Test(description = "Verify that each category in the ShopByCategory menu has four subcategories")
     @Description("Verify that each category in the ShopByCategory menu has four subcategories")
     @TmsLink(value = "SEL-5")
     public void verifySubCategoriesCount() {
-        ShopByCategoryMenu shopByCategoryMenu = new HomePage(driver)
+        var softAssert = new SoftAssertions();
+        var shopByCategoryMenu = new HomePage()
+                .open()
                 .getHeader()
                 .openShopByCategoryMenu();
-        List<WebElement> subCategoriesLists = shopByCategoryMenu.getSubCategoriesLists();
-        List<WebElement> subCategoryItemsList;
+        List<SelenideElement> subCategoriesLists = shopByCategoryMenu.getSubCategoriesLists();
+        List<SelenideElement> subCategoryItemsList;
         for (int i = 0; i < subCategoriesLists.size(); i++) {
             subCategoryItemsList = shopByCategoryMenu.getSubCategoryItemsList(subCategoriesLists.get(i));
-            softAssert.assertEquals(subCategoryItemsList.size(), 4,
-                    "Assert subcategories count failed");
+            softAssert.assertThat(subCategoryItemsList.size())
+                    .as("Count subcategories should be equal 4")
+                    .isEqualTo(4);
         }
         shopByCategoryMenu.getHomePage();
         softAssert.assertAll();

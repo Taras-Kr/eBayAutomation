@@ -3,7 +3,7 @@
 <suite name="Regression 'Main Menu' test suite" verbose="2">
     <test name="Main Menu smoke tests" preserve-order="true">
         <classes>
-            <class name="com.taraskrasitsky.ebay.ui.TopMenuTest">
+            <class name="com.taraskrasitskyi.ebay.ui.TopMenuTest">
                 <methods>
                     <include name="verifyThatCategoryOpens"/>
                     <include name="verifyThatMostPopularCategoriesOpens"/>

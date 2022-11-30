@@ -3,7 +3,7 @@
 <suite name="Regression 'Shop By Catergories' test_suite" verbose="2" >
     <test name=" 'Shop by categories' tests" >
         <classes >
-            <class name="com.taraskrasitsky.ebay.ui.ShopByCategoryTest">
+            <class name="com.taraskrasitskyi.ebay.ui.ShopByCategoryTest">
                 <methods>
                     <include name="verifyThatSeeAllCategoriesOpens"/>
                     <include name="verifyThatCategoriesOpen"/>

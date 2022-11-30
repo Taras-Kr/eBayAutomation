@@ -1,60 +1,46 @@
 package com.taraskrasitskyi.ebay.ui.elements;
 
+import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.pages.BasePage;
 import com.taraskrasitskyi.ebay.ui.pages.CategoryPage;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.List;
 
-import static com.taraskrasitskyi.ebay.ui.locators.ShopByCategoriesLocators.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ShopByCategoryMenu extends BasePage {
 
-    public ShopByCategoryMenu(WebDriver driver) {
-        super(driver);
+    @Step("ShopByCategoryMenu : get categories list")
+    public List<SelenideElement> getMenuMainItemsList() {
+        return $$x("//h3[@class='gh-sbc-parent']");
     }
 
-    @Step("Get categories list")
-    public List<WebElement> getMenuMainItemsList() {
-        return driver.findElements(CATEGORIES_LIST.getPath());
-    }
-
+    @Step("ShopByCategoryMenu : get categories count in the menu")
     public int categoriesCount() {
-        List<WebElement> categories = getMenuMainItemsList();
+        List<SelenideElement> categories = getMenuMainItemsList();
         getHeader().openShopByCategoryMenu();
         return categories.size();
     }
 
-    @Step("Open category")
-    public CategoryPage openCategory(WebElement category) {
-        category
-                .findElement(CATEGORIES_LINK.getPath())
-                .click();
-        return new CategoryPage(driver);
+    @Step("ShopByCategories : open category")
+    public CategoryPage openCategory(SelenideElement category) {
+        category.$("a").click();
+        return new CategoryPage();
     }
 
-    @Step("Open See All Categories")
+    @Step("ShopByCategory : open 'See All Categories'")
     public CategoryPage openSeeAllCategories() {
-        driver
-                .findElement(SEE_ALL_CATEGORIES.getPath())
-                .click();
-        return new CategoryPage(driver);
+        $x("//a[@id='gh-shop-see-all']").click();
+        return new CategoryPage();
     }
 
-    @Step("Get subcategories lists")
-    public List<WebElement> getSubCategoriesLists() {
-        return driver.findElements(SUB_CATEGORIES_LIST.getPath());
+    @Step("ShopByCategoryMenu : get subcategories lists")
+    public List<SelenideElement> getSubCategoriesLists() {
+        return $$("h3.gh-sbc-parent + ul");
     }
 
-    @Step("Get subcategory items list")
-    public List<WebElement> getSubCategoryItemsList(WebElement categoryList) {
-        return categoryList
-                .findElements(SUB_CATEGORY_ITEMS_LIST.getPath());
+    @Step("ShopByCategoryMenu : get subcategory items list")
+    public List<SelenideElement> getSubCategoryItemsList(SelenideElement categoryList) {
+        return categoryList.$$("li");
     }
 }

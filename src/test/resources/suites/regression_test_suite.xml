@@ -3,13 +3,13 @@
 <suite name="Regression test suite" verbose="2" parallel="classes" thread-count="1">
     <test name="Smoke tests" preserve-order="true">
         <classes>
-            <class name="com.taraskrasitsky.ebay.ui.TopMenuTest">
+            <class name="com.taraskrasitskyi.ebay.ui.TopMenuTest">
                 <methods>
                     <include name="verifyThatCategoryOpens"/>
                     <include name="verifyThatMostPopularCategoriesOpens"/>
                 </methods>
             </class>
-            <class name="com.taraskrasitsky.ebay.ui.ShopByCategoryTest">
+            <class name="com.taraskrasitskyi.ebay.ui.ShopByCategoryTest">
                 <methods>
                     <include name="verifyThatSeeAllCategoriesOpens"/>
                     <include name="verifyThatCategoriesOpen"/>

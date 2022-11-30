@@ -1,4 +1,4 @@
-package com.taraskrasitsky.ebay.utils;
+package com.taraskrasitskyi.ebay.utils;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -19,9 +19,9 @@ public class ExpectedDataReader {
         this.filePath = filePath;
         dataLines = new ArrayList<>();
         try {
-            FileReader fileReader = new FileReader(filePath);
-            CSVParser csvParser = new CSVParserBuilder().withSeparator('~').build();
-            CSVReader csvReader = new CSVReaderBuilder(fileReader)
+            var fileReader = new FileReader(filePath);
+            var csvParser = new CSVParserBuilder().withSeparator('~').build();
+            var csvReader = new CSVReaderBuilder(fileReader)
                     .withCSVParser(csvParser)
                     .withSkipLines(1)
                     .build();
