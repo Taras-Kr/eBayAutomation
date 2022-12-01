@@ -32,6 +32,8 @@ hs_err_pid*
 .settings
 test-output
 
+build/
+
 target/
 
 src/test/resources/webdrivers/
