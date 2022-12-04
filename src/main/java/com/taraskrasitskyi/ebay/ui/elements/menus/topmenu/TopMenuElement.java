@@ -1,4 +1,4 @@
-package com.taraskrasitskyi.ebay.ui.elements;
+package com.taraskrasitskyi.ebay.ui.elements.menus.topmenu;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

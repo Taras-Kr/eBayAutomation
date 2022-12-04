@@ -1,4 +1,4 @@
-package com.taraskrasitskyi.ebay.ui.elements;
+package com.taraskrasitskyi.ebay.ui.elements.menus.topmenu;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;

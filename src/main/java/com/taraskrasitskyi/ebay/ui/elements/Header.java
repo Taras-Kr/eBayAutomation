@@ -1,5 +1,6 @@
 package com.taraskrasitskyi.ebay.ui.elements;
 
+import com.taraskrasitskyi.ebay.ui.elements.menus.shopbycategorymenu.ShopByCategoryMenu;
 import com.taraskrasitskyi.ebay.ui.pages.BasePage;
 import io.qameta.allure.Step;
 

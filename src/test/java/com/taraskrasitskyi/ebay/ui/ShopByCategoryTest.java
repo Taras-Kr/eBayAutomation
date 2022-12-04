@@ -1,7 +1,7 @@
 package com.taraskrasitskyi.ebay.ui;
 
 import com.codeborne.selenide.SelenideElement;
-import com.taraskrasitskyi.ebay.ui.elements.ShopByCategoryMenu;
+import com.taraskrasitskyi.ebay.ui.elements.menus.shopbycategorymenu.ShopByCategoryMenu;
 import com.taraskrasitskyi.ebay.ui.pages.CategoryPage;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.ExpectedDataReader;

@@ -1,4 +1,4 @@
-package com.taraskrasitskyi.ebay.ui.elements;
+package com.taraskrasitskyi.ebay.ui.elements.menus.shopbycategorymenu;
 
 import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.pages.BasePage;
@@ -25,6 +25,12 @@ public class ShopByCategoryMenu extends BasePage {
     @Step("ShopByCategories : open category")
     public CategoryPage openCategory(SelenideElement category) {
         category.$("a").click();
+        return new CategoryPage();
+    }
+
+    @Step("ShopByCategories : open category")
+    public CategoryPage openCategory(ShopByCategoryMenuItem category){
+        $x(String.format("//a[text()='%s']", category.getName())).click();
         return new CategoryPage();
     }
 
