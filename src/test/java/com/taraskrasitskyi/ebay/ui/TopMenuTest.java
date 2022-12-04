@@ -1,6 +1,6 @@
 package com.taraskrasitskyi.ebay.ui;
 
-import com.taraskrasitskyi.ebay.ui.elements.TopMenuElement;
+import com.taraskrasitskyi.ebay.ui.elements.menus.topmenu.TopMenuElement;
 import com.taraskrasitskyi.ebay.ui.pages.CategoryPage;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.ExpectedDataReader;
