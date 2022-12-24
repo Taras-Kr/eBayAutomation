@@ -68,4 +68,10 @@ public class FilterModal {
                 .map(SelenideElement::getText)
                 .collect(Collectors.toList());
     }
+
+    @Step("FilterModal: remove selected filter option {filterOptionName}")
+    public FilterModal removeSelectedFilter(String filterOptionName){
+        $x(String.format("//button[@aria-label = 'remove filter - %s']", filterOptionName)).click();
+        return this;
+    }
 }
