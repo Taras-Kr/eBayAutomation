@@ -4,6 +4,8 @@ import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.TestRunner;
 import io.qameta.allure.Description;
 import io.qameta.allure.TmsLink;
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -163,6 +165,53 @@ public class FilteringTest extends TestRunner {
         assertThat(filter.getSelectedFiltersCount())
                 .as("Selected filter options should be equal 0")
                 .isEqualTo(0);
+    }
+
+    @Test (description = "Verify that an unregistered user can see the selected filter options after returning to filter from another filter")
+    @Description(value = "Verify that an unregistered user can see the selected filter options after returning to filter from another filter")
+    @TmsLink(value = "SEL-11")
+    public void verifyThatUserCanSeeEarlySelectedFilterOptions() {
+        var filter = new HomePage()
+                .open()
+                .getHeader()
+                .openShopByCategoryMenu()
+                .openCategory(COMPUTERS_TABLETS)
+                .getLeftSideCategoriesMenu()
+                .expandMenuItem(LAPTOPS_NOTEBOOKS)
+                .openMenuItem(PC_LAPTOPS_NOTEBOOKS)
+                .openAllFilters();
+
+        filter
+                .selectFilter("RAM Size")
+                .selectOption("16 GB")
+                .selectOption("8 GB");
+        assertThat(filter.isOptionChecked("16 GB"))
+                .as("Filter option should be checked")
+                .isTrue();
+        assertThat(filter.isOptionChecked("8 GB"))
+                .as("Filter option should be checked")
+                .isTrue();
+
+        filter
+                .selectFilter("Processor")
+                .selectOption("Intel Core i5 7th Gen.")
+                .selectOption("AMD Ryzen 7");
+        assertThat(filter.isOptionChecked("Intel Core i5 7th Gen."))
+                .as("Filter option should be checked")
+                .isTrue();
+        assertThat(filter.isOptionChecked("Intel Core i5 7th Gen."))
+                .as("AMD Ryzen 7")
+                .isTrue();
+
+        var softAssert = new SoftAssertions();
+        filter.selectFilter("RAM Size");
+        softAssert.assertThat(filter.isOptionChecked("16 GB"))
+                .as("Filter option 16 GB should be checked" )
+                .isTrue();
+        softAssert.assertThat(filter.isOptionChecked("8 GB"))
+                .as("Filter option 8 GB should be checked")
+                .isTrue();
+        softAssert.assertAll();
     }
 
 
