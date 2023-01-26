@@ -16,7 +16,7 @@ public class TopMenuTest extends TestRunner {
 
     @Test(description = "Verify that an unregistered user can open category 'Electronics' from the top menu")
     @Description("Verify that an unregistered user can open category 'Electronics' from the top menu")
-    @TmsLink(value = "SEL-1")
+    @TmsLink(value = "EBA-8")
     public void verifyThatCategoryOpens() {
         var category = TopMenuElement.ELECTRONICS;
         var categoryPage = new HomePage().open()
@@ -38,7 +38,7 @@ public class TopMenuTest extends TestRunner {
 
     @Test(description = "Verify that the user can open subcategories from the \"Most popular categories\" top menu item \"Electronics\"")
     @Description("Verify that the user can open subcategories from the \"Most popular categories\" top menu item \"Electronics\"")
-    @TmsLink(value = "SEL-2")
+    @TmsLink(value = "EBA-11")
     public void verifyThatMostPopularCategoriesOpens() {
         var topMenu = new HomePage()
                 .open()
