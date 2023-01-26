@@ -18,7 +18,7 @@ public class ShopByCategoryTest extends TestRunner {
 
     @Test(description = "Verify that the user can open each main category from the ShopByCategory menu")
     @Description("Verify that the user can open each main category from the ShopByCategory menu")
-    @TmsLink(value = "SEL-3")
+    @TmsLink(value = "EBA-5")
     public void verifyThatCategoriesOpen() {
         var homePage = new HomePage().open();
         int categoriesCount = homePage
@@ -49,7 +49,7 @@ public class ShopByCategoryTest extends TestRunner {
 
     @Test(description = "Verify that the user can open the \"See All Categories\" link from the ShopByCategory menu")
     @Description("Verify that the user can open the \"See All Categories\" link from the ShopByCategory menu")
-    @TmsLink(value = "SEL-4")
+    @TmsLink(value = "EBA-7")
     public void verifyThatSeeAllCategoriesOpens() {
         var seeAllCategories = new HomePage()
                 .open()
@@ -63,7 +63,7 @@ public class ShopByCategoryTest extends TestRunner {
 
     @Test(description = "Verify that each category in the ShopByCategory menu has four subcategories")
     @Description("Verify that each category in the ShopByCategory menu has four subcategories")
-    @TmsLink(value = "SEL-5")
+    @TmsLink(value = "EBA-14")
     public void verifySubCategoriesCount() {
         var softAssert = new SoftAssertions();
         var shopByCategoryMenu = new HomePage()

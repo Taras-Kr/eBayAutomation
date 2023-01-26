@@ -21,7 +21,7 @@ public class FilteringTest extends TestRunner {
 
     @Test(description = "Verify that the filter options count increases when the user selects options in the filter")
     @Description(value = "Verify that the filter options count increases when the user selects options in the filter")
-    @TmsLink(value = "SEL-9")
+    @TmsLink(value = "EBA-4")
     public void verifyThatFilterOptionsCountIncreases() {
         var categoryPage = new HomePage()
                 .open()
@@ -94,7 +94,7 @@ public class FilteringTest extends TestRunner {
 
     @Test(description = "Verify that the option check box is unselected when the user deletes the filter from the selected filter options list")
     @Description(value = "Verify that the option check box is unselected when the user deletes the filter from the selected filter options list")
-    @TmsLink(value = "SEL-10")
+    @TmsLink(value = "EBA-1")
     public void verifyThatFilterOptionsUnselects() {
         var categoryPage = new HomePage()
                 .open()
@@ -169,7 +169,7 @@ public class FilteringTest extends TestRunner {
 
     @Test (description = "Verify that an unregistered user can see the selected filter options after returning to filter from another filter")
     @Description(value = "Verify that an unregistered user can see the selected filter options after returning to filter from another filter")
-    @TmsLink(value = "SEL-11")
+    @TmsLink(value = "EBA-2")
     public void verifyThatUserCanSeeEarlySelectedFilterOptions() {
         var filter = new HomePage()
                 .open()
