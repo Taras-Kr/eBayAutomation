@@ -1,8 +1,10 @@
 package com.taraskrasitskyi.ebay.ui.elements;
 
 import com.codeborne.selenide.SelenideElement;
+import com.taraskrasitskyi.ebay.ui.pages.ProductsPage;
 import io.qameta.allure.Step;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,5 +75,22 @@ public class FilterModal {
     public FilterModal removeSelectedFilter(String filterOptionName){
         $x(String.format("//button[@aria-label = 'remove filter - %s']", filterOptionName)).click();
         return this;
+    }
+
+    @Step("FilterModal: input {priceFrom} and {priceTo}")
+    public FilterModal inputPriceFromTo(String priceFrom, String priceTo){
+        if(!priceFrom.isEmpty()) {
+            $x("//input[@class='x-textrange__input x-textrange__input--from']").setValue(priceFrom);
+        }
+        if(!priceTo.isEmpty()) {
+            $x("//input[@class='x-textrange__input x-textrange__input--to']").setValue(priceTo);
+        }
+        return this;
+    }
+
+    @Step("FilterModal: Apply filters")
+    public ProductsPage applyFilters(){
+        $x("//button[@class = 'x-overlay-footer__apply-btn btn btn--primary']").click();
+        return new ProductsPage();
     }
 }
