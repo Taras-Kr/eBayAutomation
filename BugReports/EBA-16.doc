@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>[#EBA-16] Selected filter options is not displayed when the user return to the filter</title>
+    <meta http-equiv="Content-Type" Content="application/vnd.ms-word; charset=UTF-8">
+        <style type="text/css">
+
+.tableBorder, .grid
+{
+    background-color: #fff;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableBorder td, .grid td
+{
+    vertical-align: top;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+.noPadding
+{
+    padding: 0 !important;
+}
+
+h3 .subText
+{
+    font-size: 60%;
+    font-weight: normal;
+}
+
+.tabLabel
+{
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-bottom:none;
+    padding: 2px;
+    display: inline;
+}
+
+td.blank
+{
+    padding: 0;
+    margin: 0;
+}
+
+.blank td
+{
+    border: none;
+}
+
+#descriptionArea
+{
+    margin: 0;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+hr
+{
+    border-top:1px solid #aaa;
+}
+
+hr.fullcontent
+{
+  height: 15px;
+  padding: 10px 0;
+  background: #fff url('https://taraskrasitskyi.atlassian.net/images/icons/hr.gif') no-repeat scroll center;
+}
+
+</style>
+
+</head>
+<body>
+
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [EBA-16]&nbsp;<a href="https://taraskrasitskyi.atlassian.net/browse/EBA-16">Selected filter options is not displayed when the user return to the filter</a>
+            <span class="subText">
+               Created: 26/січ./23                   &nbsp;Updated: 26/січ./23
+
+                                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Status:</b></td>
+        <td width="80%">In Progress</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Project:</b></td>
+        <td width="80%"><a href="https://taraskrasitskyi.atlassian.net/secure/BrowseProject.jspa?id=10002">eBayAutomation</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Components:</b></td>
+            <td>
+                                        <a title="UI - Filter - Implement filter functionality"
+                href="https://taraskrasitskyi.atlassian.net/issues/?jql=project%3D10002%20AND%20%22component%22%3D10000%20ORDER%20BY%20priority%20ASC"
+            >UI - Filter</a>                        </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Affects versions:</b></td>
+            <td>
+                            None
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Fix versions:</b></td>
+            <td>
+                            None
+                </td>
+    </tr>
+    
+    </table>
+
+<br />
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Type:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top"  width="30%" >
+            Bug
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Priority:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap>
+                Low
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Reporter:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top"  width="30%" >
+                                        
+                
+        
+            <a class="user-hover" rel="62f29247b5b801a9aff0e7cf"
+                id="word_reporter_62f29247b5b801a9aff0e7cf"
+                href="https://taraskrasitskyi.atlassian.net/secure/ViewProfile.jspa?accountId=62f29247b5b801a9aff0e7cf">
+                    Taras Krasitskyi
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Assignee:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >
+                                    Unassigned
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolution:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap>
+            				Unresolved
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votes:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap>
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Labels:</b>
+        </td>
+        <td id="labels-10021-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>
+                            Filter_functionality                    </td>
+    </tr>
+    
+    	<tr>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Original estimate:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+    </tr>
+    
+    	<tr>
+
+		<td bgcolor="#f0f0f0" width="20%" valign="top">
+			<b>Environment:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" colspan="3">
+            <p>Windows 10 Pro 21H1, Chrome 109.0.5414.76</p>
+		</td>
+	</tr>
+    </table>
+
+
+
+    <br />
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+                <tr>
+            <td bgcolor="#f0f0f0" width=20% valign=top>
+                <b>Attachments:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top">
+                                    <img src="https://taraskrasitskyi.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    EBA-16_1.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://taraskrasitskyi.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    EBA-16_2.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://taraskrasitskyi.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    EBA-16_3.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://taraskrasitskyi.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    EBA-16_Actual result.png &nbsp;&nbsp;&nbsp;
+                            </td>
+        </tr>
+        
+    
+
+
+
+                        <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10020-10021-value" class="value" bgcolor="#ffffff" width="80%">SEL Sprint 4</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Steps to reproduce:</b></td>
+                <td id="customfield_10047-10021-value" class="value" bgcolor="#ffffff" width="80%">      <p><b>I as an unregistered user:</b></p>
+
+<p><b>Version 1:</b></p>
+
+<ol>
+	<li>Open category products page → open “All Filters“</li>
+	<li>Select filter (for example “RAM Size“) → select filter options (for example “8 GB“ and “16 GB“)</li>
+	<li>Select another filter (for example “Processor“) → select filter options (for example “AMD Ryzen 7“ and “Intel Core i5 7th Gen.“ )</li>
+	<li>Return to the previous filter</li>
+</ol>
+
+
+<p><b>Actual result:</b> Early selected filter options are not displayed (appropriate checkboxes are not selected)</p>
+
+<p><b>Expected result:</b> I expect to see that early selected filter options are selected (appropriate checkboxes are selected)</p>
+
+
+
+<p><b>Version 2 (Step-by-step):</b></p>
+
+<ol>
+	<li>Open the eBay website Electronics, Cars, Fashion, Collectibles &amp; More | eBay</li>
+	<li>Open the “Shop by category” menu</li>
+	<li>I click on the "Computers &amp; tablets" menu item</li>
+	<li>On the left pane, I click the “Laptops &amp; Netbooks” menu item</li>
+	<li>In the expanded menu, I click the “PC Laptops &amp; Netbooks” menu item</li>
+	<li>On the products page, I click the “All filters” link</li>
+	<li>On the left side filter page, I click on the “RAM Size“ filter</li>
+	<li>I select the option “16 GB”</li>
+	<li>I select the option “8 GB“</li>
+	<li>I should see that  options “8 GB“ and  “16 GB” are checked<br/>
+<span class="image-wrap" style=""><img src="/secure/attachment/10021/10021_EBA-16_1.png" height="444" width="530" style="border: 0px solid black" /></span></li>
+	<li>On the left side filter page, I click on the “Processor“ filter</li>
+	<li>I select the option “Intel Core i5 7th Gen.“</li>
+	<li>I select the option “AMD Ryzen 7“</li>
+	<li>I should see that options “AMD Ryzen 7“ and “Intel Core i5 7th Gen.“ are checked<br/>
+<span class="image-wrap" style=""><img src="/secure/attachment/10019/10019_EBA-16_2.png" height="449" width="512" style="border: 0px solid black" /></span></li>
+	<li><span class="image-wrap" style=""><img src="/secure/attachment/10020/10020_EBA-16_3.png" height="448" width="510" style="border: 0px solid black" /></span><br/>
+On the left side filter page, I click on the “RAM Size“ filter</li>
+</ol>
+
+
+<p><b>Actual result:</b> Options “8 GB“ and  “16 GB” are unchecked</p>
+
+<p><span class="image-wrap" style=""><img src="/secure/attachment/10022/10022_EBA-16_Actual+result.png" height="447" width="509" style="border: 0px solid black" /></span></p>
+
+
+<p><b>Expected result:</b> I expect to see that options “16 GB“ and option “8 GB“  are checked both.</p>
+  </td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Severity:</b></td>
+                <td id="customfield_10045-10021-value" class="value" bgcolor="#ffffff" width="80%">    Low
+</td>
+            </tr>
+            </table>
+
+    <br/>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap align="center">
+            &nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td id="descriptionArea">
+            <p><b>User story:</b> <a href="https://taraskrasitskyi.atlassian.net/browse/SEL-11" title="smart-link" class="external-link" rel="nofollow noreferrer">https://taraskrasitskyi.atlassian.net/browse/SEL-11</a></p>
+
+<p>The user can’t see selected filter options on the filtering page which were selected early when the user returns to the filter from another one.</p>
+
+<p><b>Actual result:</b> The user can’t see selected filter options</p>
+
+<p><b>Expected result:</b> The user should see selected filter options</p>
+            <br/>
+        </td>
+    </tr>
+    </table>
+
+Generated at Thu Jan 26 19:54:36 UTC 2023 by Taras Krasitskyi using Jira 1001.0.0-SNAPSHOT#100214-sha1:634fa42673934690da187fee8282087cff56d9ec.
+
+</body>
+</html>

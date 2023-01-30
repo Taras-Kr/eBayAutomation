@@ -6,7 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ShopByCategoryMenuItem {
 
-    COMPUTERS_TABLETS("Computers & tablets");
+    COMPUTERS_TABLETS("Computers & tablets"),
+    CELL_PHONE_ACCESSORIES("Cell phones & accessories");
     @Getter
     private final String name;
 
