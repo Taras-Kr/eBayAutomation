@@ -9,6 +9,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -169,7 +170,7 @@ public class FilteringTest extends TestRunner {
                 .isEqualTo(0);
     }
 
-    @Test (description = "Verify that an unregistered user can see the selected filter options after returning to filter from another filter")
+    @Test(description = "Verify that an unregistered user can see the selected filter options after returning to filter from another filter")
     @Description(value = "Verify that an unregistered user can see the selected filter options after returning to filter from another filter")
     @TmsLink(value = "EBA-2")
     public void verifyThatUserCanSeeEarlySelectedFilterOptions() {
@@ -208,7 +209,7 @@ public class FilteringTest extends TestRunner {
         var softAssert = new SoftAssertions();
         filter.selectFilter("RAM Size");
         softAssert.assertThat(filter.isOptionChecked("16 GB"))
-                .as("Filter option 16 GB should be checked" )
+                .as("Filter option 16 GB should be checked")
                 .isTrue();
         softAssert.assertThat(filter.isOptionChecked("8 GB"))
                 .as("Filter option 8 GB should be checked")
@@ -216,28 +217,30 @@ public class FilteringTest extends TestRunner {
         softAssert.assertAll();
     }
 
-    @Test
-    public void verifyThatUserCanFilteringProductsOverPrice(){
-        new HomePage().open();
-
-    }
-    @Test(description = "Method for testing Product class")
-    public void testProductClass(){
+    @Test(description = "Verify that an unregistered user can filter goods by price in range over the minimal price")
+    @Description(value = "Verify that an unregistered user can filter goods by price in range over the minimal price")
+    @TmsLink(value = "EBA-9")
+    public void verifyThatUserCanFilteringProductsFromMinPrice() {
+        var minPrice = new BigDecimal("799.99");
         var productsPage = new HomePage()
                 .open()
                 .getHeader()
                 .openShopByCategoryMenu()
                 .openCategory(CELL_PHONE_ACCESSORIES)
                 .getLeftSideCategoriesMenu()
-                .openMenuItem(CELL_PHONES_SMARTPHONES);
-        var product= productsPage.getProduct(6);
-        var productTitle = product.getTitle();
-        var productPrice = product.getPrice();
-        var productsList = productsPage.getProductsList();
-        var pricesList = productsPage.getPricesList(productsList);
-        var homePage=new HomePage();
-
+                .openMenuItem(CELL_PHONES_SMARTPHONES)
+                .openAllFilters()
+                .selectFilter("Price")
+                .inputPriceFromTo(String.valueOf(minPrice), "")
+                .applyFilters();
+        List<BigDecimal> pricesList = productsPage.getPricesList(productsPage.getProductsList());
+        SoftAssertions softAssert = new SoftAssertions();
+        for (BigDecimal price : pricesList) {
+            softAssert
+                    .assertThat(price)
+                    .as("Product price should be greater or equal " + minPrice.toString() + ": Price - " + price.toString())
+                    .isGreaterThanOrEqualTo(minPrice);
+        }
+        softAssert.assertAll();
     }
-
-
 }
