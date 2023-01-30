@@ -1,5 +1,6 @@
 package com.taraskrasitskyi.ebay.ui;
 
+import com.taraskrasitskyi.ebay.ui.elements.Product;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.TestRunner;
 import io.qameta.allure.Description;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenuItem.LAPTOPS_NOTEBOOKS;
+import static com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenuItemLink.CELL_PHONES_SMARTPHONES;
 import static com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenuItemLink.PC_LAPTOPS_NOTEBOOKS;
 import static com.taraskrasitskyi.ebay.ui.elements.menus.shopbycategorymenu.ShopByCategoryMenuItem.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -212,6 +214,29 @@ public class FilteringTest extends TestRunner {
                 .as("Filter option 8 GB should be checked")
                 .isTrue();
         softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyThatUserCanFilteringProductsOverPrice(){
+        new HomePage().open();
+
+    }
+    @Test(description = "Method for testing Product class")
+    public void testProductClass(){
+        var productsPage = new HomePage()
+                .open()
+                .getHeader()
+                .openShopByCategoryMenu()
+                .openCategory(CELL_PHONE_ACCESSORIES)
+                .getLeftSideCategoriesMenu()
+                .openMenuItem(CELL_PHONES_SMARTPHONES);
+        var product= productsPage.getProduct(6);
+        var productTitle = product.getTitle();
+        var productPrice = product.getPrice();
+        var productsList = productsPage.getProductsList();
+        var pricesList = productsPage.getPricesList(productsList);
+        var homePage=new HomePage();
+
     }
 
 
