@@ -1,10 +1,9 @@
-package com.taraskrasitskyi.ebay.ui.elements;
+package com.taraskrasitskyi.ebay.ui.elements.filter;
 
 import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.pages.ProductsPage;
 import io.qameta.allure.Step;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +19,8 @@ public class FilterModal {
     }
 
     @Step("FilterModal: select filter {filterName}")
-    public FilterModal selectFilter(String filterName) {
-        $x(String.format("//div//span[@class='x-overlay-aspect__label' and text()='%s']", filterName)).click();
+    public FilterModal selectFilter(FilterName filterName) {
+        $x(String.format("//div//span[@class='x-overlay-aspect__label' and text()='%s']", filterName.getFilterName())).click();
         return this;
     }
 

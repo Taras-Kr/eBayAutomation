@@ -7,6 +7,11 @@ import lombok.Getter;
 public enum TopMenuElement {
     ELECTRONICS("Electronics");
 
-@Getter
-    private  final String name;
+    @Getter
+    private final String name;
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

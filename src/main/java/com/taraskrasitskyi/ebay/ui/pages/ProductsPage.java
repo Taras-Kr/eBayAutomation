@@ -1,9 +1,7 @@
 package com.taraskrasitskyi.ebay.ui.pages;
 
 import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.taraskrasitskyi.ebay.ui.elements.FilterModal;
+import com.taraskrasitskyi.ebay.ui.elements.filter.FilterModal;
 import com.taraskrasitskyi.ebay.ui.elements.Product;
 import io.qameta.allure.Step;
 

@@ -10,5 +10,9 @@ public enum ShopByCategoryMenuItem {
     CELL_PHONE_ACCESSORIES("Cell phones & accessories");
     @Getter
     private final String name;
+    @Override
+    public String toString() {
+        return getName();
+    }
 
 }
