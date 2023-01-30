@@ -1,11 +1,9 @@
 package com.taraskrasitskyi.ebay.ui;
 
-import com.taraskrasitskyi.ebay.ui.elements.Product;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.TestRunner;
 import io.qameta.allure.Description;
 import io.qameta.allure.TmsLink;
-import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -14,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.taraskrasitskyi.ebay.ui.elements.filter.FilterName.*;
 import static com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenuItem.LAPTOPS_NOTEBOOKS;
 import static com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenuItemLink.CELL_PHONES_SMARTPHONES;
 import static com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenuItemLink.PC_LAPTOPS_NOTEBOOKS;
@@ -51,7 +50,7 @@ public class FilteringTest extends TestRunner {
         List<String> options = Arrays.asList("13-13.9 in", "16-16.9 in", "Dell", "LG");
 
         filter
-                .selectFilter("Screen Size")
+                .selectFilter(SCREEN_SIZE)
                 .selectOption(options.get(0));
         assertThat(filter.isOptionChecked(options.get(0)))
                 .as("Filter option should be checked")
@@ -71,7 +70,7 @@ public class FilteringTest extends TestRunner {
                 .isEqualTo(selectedFilterCount);
 
         filter
-                .selectFilter("Brand")
+                .selectFilter(BRAND)
                 .selectOption(options.get(2));
         assertThat(filter.isOptionChecked(options.get(2)))
                 .as("Filter option should be checked")
@@ -119,7 +118,7 @@ public class FilteringTest extends TestRunner {
         List<String> filterOptions = new ArrayList<>();
         var filter = productsPage.openAllFilters();
         filter
-                .selectFilter("RAM Size")
+                .selectFilter(RAM_SIZE)
                 .selectOption("16 GB")
                 .selectOption("8 GB");
         filterOptions.add("16 GB");
@@ -132,7 +131,7 @@ public class FilteringTest extends TestRunner {
                 .isEqualTo(filterOptions);
 
         filter
-                .selectFilter("Processor")
+                .selectFilter(PROCESSOR)
                 .selectOption("Intel Core i5 7th Gen.")
                 .selectOption("AMD Ryzen 7");
         filterOptions.add("Intel Core i5 7th Gen.");
@@ -147,7 +146,7 @@ public class FilteringTest extends TestRunner {
         filter
                 .removeSelectedFilter("16 GB")
                 .removeSelectedFilter("8 GB");
-        filter.selectFilter("RAM Size");
+        filter.selectFilter(RAM_SIZE);
         assertThat(filter.isOptionChecked("16 GB"))
                 .as("Filter option should be unchecked")
                 .isEqualTo(false);
@@ -158,7 +157,7 @@ public class FilteringTest extends TestRunner {
         filter
                 .removeSelectedFilter("Intel Core i5 7th Gen.")
                 .removeSelectedFilter("AMD Ryzen 7");
-        filter.selectFilter("Processor");
+        filter.selectFilter(PROCESSOR);
         assertThat(filter.isOptionChecked("Intel Core i5 7th Gen."))
                 .as("Filter option should be unchecked")
                 .isEqualTo(false);
@@ -185,7 +184,7 @@ public class FilteringTest extends TestRunner {
                 .openAllFilters();
 
         filter
-                .selectFilter("RAM Size")
+                .selectFilter(RAM_SIZE)
                 .selectOption("16 GB")
                 .selectOption("8 GB");
         assertThat(filter.isOptionChecked("16 GB"))
@@ -196,7 +195,7 @@ public class FilteringTest extends TestRunner {
                 .isTrue();
 
         filter
-                .selectFilter("Processor")
+                .selectFilter(PROCESSOR)
                 .selectOption("Intel Core i5 7th Gen.")
                 .selectOption("AMD Ryzen 7");
         assertThat(filter.isOptionChecked("Intel Core i5 7th Gen."))
@@ -207,7 +206,7 @@ public class FilteringTest extends TestRunner {
                 .isTrue();
 
         var softAssert = new SoftAssertions();
-        filter.selectFilter("RAM Size");
+        filter.selectFilter(RAM_SIZE);
         softAssert.assertThat(filter.isOptionChecked("16 GB"))
                 .as("Filter option 16 GB should be checked")
                 .isTrue();
@@ -230,7 +229,7 @@ public class FilteringTest extends TestRunner {
                 .getLeftSideCategoriesMenu()
                 .openMenuItem(CELL_PHONES_SMARTPHONES)
                 .openAllFilters()
-                .selectFilter("Price")
+                .selectFilter(PRICE)
                 .inputPriceFromTo(String.valueOf(minPrice), "")
                 .applyFilters();
         List<BigDecimal> pricesList = productsPage.getPricesList(productsPage.getProductsList());
@@ -238,7 +237,7 @@ public class FilteringTest extends TestRunner {
         for (BigDecimal price : pricesList) {
             softAssert
                     .assertThat(price)
-                    .as("Product price should be greater or equal " + minPrice.toString() + ": Price - " + price.toString())
+                    .as("Product price should be greater or equal " + minPrice + ": Price - " + price)
                     .isGreaterThanOrEqualTo(minPrice);
         }
         softAssert.assertAll();
