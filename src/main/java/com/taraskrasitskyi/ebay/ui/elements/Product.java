@@ -1,11 +1,9 @@
 package com.taraskrasitskyi.ebay.ui.elements;
 
-import com.codeborne.selenide.SelenideElement;
+
 import io.qameta.allure.Step;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 import java.math.BigDecimal;
 
@@ -25,24 +23,41 @@ public class Product {
         return title;
     }
 
-    @Step("Product: Get product price")
-    public BigDecimal getPrice() {
-        String itemPriceXpath = "//span[@class = 's-item__price']";
-        String itemPriceInRangeXpath = "//span[@class = 'DEFAULT']";
-        String stringPrice;
-          if ($x(String.format("%s%s", xPath, itemPriceInRangeXpath)).exists()) {
-            stringPrice = $x(String.format("%s%s", xPath, itemPriceXpath)).getText();
-            stringPrice = stringPrice.substring(stringPrice.indexOf("to ") + 3);
+    private String getStringPrice() {
+        return $x(String.format("%s%s", xPath, "//span[@class = 's-item__price']")).getText();
+    }
 
-         } else {
-            stringPrice = $x(String.format("%s%s", xPath, itemPriceXpath)).getText();
+    //Some products have two prices 'FROM' an 'TO'. It returns 'FROM' price. If product has only one price it will be returned
+    @Step("Product: Get 'FROM' Product Price")
+    public BigDecimal getFromPrice() {
+        String strPrice = getStringPrice();
+        if (strPrice.contains("to ")) {
+            strPrice = strPrice.substring(0, strPrice.indexOf("to ") - 1);
+
         }
-        stringPrice  =stringPrice
-                    .replaceAll("\\$","")
-                    .replaceAll(",","");
-         price = BigDecimal.valueOf(Double.valueOf( stringPrice));
+        strPrice = strPrice
+                .replaceAll("\\$", "")
+                .replaceAll(",", "");
+        price = BigDecimal.valueOf(Double.parseDouble(strPrice));
         return price;
     }
+
+    //Some products have two prices 'FROM' an 'TO'. It returns 'TO' price. If product has only one price it will be returned
+    @Step("Product: Get 'TO' Product Price")
+    public BigDecimal getToPrice() {
+        String strPrice = getStringPrice();
+        if (strPrice.contains("to ")) {
+            strPrice = strPrice.substring(strPrice.indexOf("to ") + 3);
+
+        }
+        strPrice = strPrice
+                .replaceAll("\\$", "")
+                .replaceAll(",", "");
+        price = BigDecimal.valueOf(Double.parseDouble(strPrice));
+        return price;
+    }
+
+
 
 
 }

@@ -25,19 +25,19 @@ public class FilterModal {
     }
 
     @Step("FilterModal: get option check box {optionName}")
-    private SelenideElement getOptionCheckBox(String optionName) {
+    private SelenideElement getOptionCheckBox(FilterOption optionName) {
         String xPath = String.format("//div[@class='x-refine__multi-select x-overlay-sub-panel__aspect-option']" +
-                "//span[text()='%s']/../..//input", optionName);
+                "//span[text()='%s']/../..//input", optionName.getOptionName());
         return $x(xPath);
     }
 
     @Step("FilterModal: verify that option {optionName} is checked")
-    public boolean isOptionChecked(String optionName) {
+    public boolean isOptionChecked(FilterOption optionName) {
         return getOptionCheckBox(optionName).isSelected();
     }
 
     @Step("FilterModal: select option {optionName} check box")
-    public FilterModal selectOption(String optionName) {
+    public FilterModal selectOption(FilterOption optionName) {
         SelenideElement optionCheckBox = getOptionCheckBox(optionName);
         optionCheckBox.shouldNot(checked);
         optionCheckBox.click();
@@ -46,7 +46,7 @@ public class FilterModal {
     }
 
     @Step("FilterModal: unselect option {optionName} check box")
-    public FilterModal unselectOption(String optionName) {
+    public FilterModal unselectOption(FilterOption optionName) {
         SelenideElement optionCheckBox = getOptionCheckBox(optionName);
         optionCheckBox.shouldBe(checked);
         optionCheckBox.click();
