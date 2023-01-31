@@ -25,21 +25,31 @@ public class ProductsPage extends BasePage {
         return new Product(String.format("(//div[@class='s-item__wrapper clearfix'])[%s]", productNumber));
     }
 
+
     @Step("Products Page: get products list")
     public List<Product> getProductsList(){
         int productsCount = $$x("//div[@class='s-item__wrapper clearfix']")
                 .shouldHave(CollectionCondition.sizeGreaterThan(1))
                 .size();
         return IntStream.rangeClosed(1,productsCount)
-                .mapToObj(i-> getProduct(i))
+                .mapToObj(i->getProduct(i))
                 .collect(Collectors.toList());
     }
 
-    @Step("Products Page: Get products price list")
-    public List<BigDecimal> getPricesList(List<Product> productsList){
+
+    @Step("Products Page: Get products 'FROM' prices list. ")
+    public List<BigDecimal> getFromPricesList(List<Product> productsList){
         return productsList
                 .stream()
-                .map(i->i.getPrice())
+                .map(i->i.getFromPrice())
+                .collect(Collectors.toList());
+    }
+
+    @Step("Products Page: Get products 'TO' prices list. ")
+    public List<BigDecimal> getToPricesList(List<Product> productsList){
+        return productsList
+                .stream()
+                .map(i->i.getToPrice())
                 .collect(Collectors.toList());
     }
 
