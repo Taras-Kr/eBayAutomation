@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum LeftSideCategoriesMenuItem {
 
-    LAPTOPS_NOTEBOOKS ("Laptops & Netbooks");
+    LAPTOPS_NOTEBOOKS ("\"Laptops & Netbooks\"");
 
     @Getter
     private final String name;

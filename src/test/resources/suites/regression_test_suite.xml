@@ -16,6 +16,15 @@
                     <include name="verifySubCategoriesCount"/>
                 </methods>
             </class>
+            <class name="com.taraskrasitskyi.ebay.ui.FilteringTest">
+                <methods>
+                    <include name="verifyThatFilterOptionsCountIncreases"/>
+                    <include name="verifyThatFilterOptionsUnselects"/>
+                    <include name="verifyThatUserCanFilteringProductsFromMinPrice"/>
+                    <include name="verifyThatUserCanFilteringProductsToMaxPrice"/>
+                    <include name="verifyThatUserCanFilteringProductsFromMinToMaxPrice"/>
+                </methods>
+            </class>
         </classes>
     </test>
  </suite>

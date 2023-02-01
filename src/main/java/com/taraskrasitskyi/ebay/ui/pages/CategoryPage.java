@@ -1,6 +1,7 @@
 package com.taraskrasitskyi.ebay.ui.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.taraskrasitskyi.ebay.ui.elements.CategoryCarouselElement;
 import com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenu;
 import io.qameta.allure.Step;
 
@@ -11,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CategoryPage extends BasePage {
 
-    @Step("CategoryPage: get text from last chain navigate link")
+    @Step("CategoryPage: Get text from last chain navigate link")
     public String getLastChainNavigateLinkText() {
         List<SelenideElement> navLinkElements = $$x("//a[@class='seo-breadcrumb-text']/span");
         if (navLinkElements.size() > 0) {
@@ -21,13 +22,19 @@ public class CategoryPage extends BasePage {
         }
     }
 
-    @Step("CategoryPage: get title banner caption")
+    @Step("CategoryPage: Get title banner caption")
     public String getTitleBannerCaption() {
         return $x("//h1").getText();
     }
 
-    @Step("CategoryPage: get left-side categories menu")
+    @Step("CategoryPage: Get left-side categories menu")
     public LeftSideCategoriesMenu getLeftSideCategoriesMenu(){
         return new LeftSideCategoriesMenu();
+    }
+
+    @Step("CategoryPage: Open category {category} from category carousel")
+    public ProductsPage openCategoryFromCarousel(CategoryCarouselElement category){
+        $x(String.format("//a//p[text()='%s']",category.getCategoryName())).click();
+        return new ProductsPage();
     }
 }

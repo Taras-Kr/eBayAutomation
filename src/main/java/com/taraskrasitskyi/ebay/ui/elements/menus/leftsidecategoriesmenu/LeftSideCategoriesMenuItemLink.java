@@ -6,8 +6,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum LeftSideCategoriesMenuItemLink {
 
-    PC_LAPTOPS_NOTEBOOKS("PC Laptops & Netbooks"),
-    CELL_PHONES_SMARTPHONES("Cell Phones & Smartphones");
+    PC_LAPTOPS_NOTEBOOKS("\"PC Laptops & Netbooks\""),
+    CELL_PHONES_SMARTPHONES("\"Cell Phones & Smartphones\""),
+    MENS_CLOTHING ("\"Men's Clothing\"");
+
 
     @Getter
     private final String name;

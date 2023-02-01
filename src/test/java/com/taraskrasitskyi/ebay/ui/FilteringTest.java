@@ -1,9 +1,9 @@
 package com.taraskrasitskyi.ebay.ui;
 
-import com.taraskrasitskyi.ebay.ui.elements.filter.BrandOption;
-import com.taraskrasitskyi.ebay.ui.elements.filter.ProcessorOption;
-import com.taraskrasitskyi.ebay.ui.elements.filter.RamSizeOption;
-import com.taraskrasitskyi.ebay.ui.elements.filter.ScreenSizeOption;
+import com.taraskrasitskyi.ebay.ui.elements.CategoryCarouselElement;
+import com.taraskrasitskyi.ebay.ui.elements.filter.*;
+import com.taraskrasitskyi.ebay.ui.elements.menus.leftsidecategoriesmenu.LeftSideCategoriesMenuItemLink;
+import com.taraskrasitskyi.ebay.ui.elements.menus.topmenu.TopMenuElement;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.TestRunner;
 import io.qameta.allure.Description;
@@ -273,4 +273,65 @@ public class FilteringTest extends TestRunner {
         }
         softAssert.assertAll();
     }
+
+    @Test(description = "Verify that an unregistered user can filter goods by price in the range between min price value and max price value")
+    @Description(value = "Verify that an unregistered user can filter goods by price in the range between min price value and max price value")
+    @TmsLink(value = "EBA-6")
+    public void verifyThatUserCanFilteringProductsFromMinToMaxPrice() {
+        var categoryPage = new HomePage()
+                .open()
+                .getTopMenu()
+                .openCategoryFromTopMenu(TopMenuElement.FASHION);
+        assertThat(categoryPage.getPageCaption())
+                .as("Page caption should be " + "'Clothing, Shoes & Accessories'")
+                .isEqualTo("Clothing, Shoes & Accessories");
+        assertThat(categoryPage.getLastChainNavigateLinkText())
+                .as("Last chain navigation link should be " + "'Clothing, Shoes & Accessories'")
+                .isEqualTo("Clothing, Shoes & Accessories");
+
+        var productsPage = categoryPage.openCategoryFromCarousel(CategoryCarouselElement.MEN);
+        assertThat(categoryPage.getPageCaption())
+                .as("Page caption should be " + "'Men'")
+                .isEqualTo("Men");
+        assertThat(categoryPage.getLastChainNavigateLinkText())
+                .as("Last chain navigation link should be " + "'Men'")
+                .isEqualTo("Men");
+
+        productsPage = productsPage
+                .getLeftSideCategoriesMenu()
+                .openMenuItem(LeftSideCategoriesMenuItemLink.MENS_CLOTHING);
+        assertThat(categoryPage.getPageCaption())
+                .as("Page caption should be " + "'Men's Clothing'")
+                .isEqualTo("Men's Clothing");
+        assertThat(categoryPage.getLastChainNavigateLinkText())
+                .as("Last chain navigation link should be " + "'Men's Clothing'")
+                .isEqualTo("Men's Clothing");
+
+        productsPage = productsPage
+                .openCategoryFromCarousel(CategoryCarouselElement.COATS_JACKETS_VESTS);
+        assertThat(categoryPage.getPageCaption())
+                .as("Page caption should be " + "'Men's Coats, Jackets & Vests'")
+                .isEqualTo("Men's Coats, Jackets & Vests");
+        assertThat(categoryPage.getLastChainNavigateLinkText())
+                .as("Last chain navigation link should be " + "'Coats, Jackets & Vests'")
+                .isEqualTo("Coats, Jackets & Vests");
+
+        BigDecimal fromPrice = new BigDecimal("9.99");
+        BigDecimal toPrice = new BigDecimal("29.99");
+        productsPage
+                .openAllFilters()
+                .selectFilter(PRICE)
+                .inputPriceFromTo(fromPrice.toString(), toPrice.toString())
+                .applyFilters();
+        List<List<BigDecimal>> productsMinMaxPrices = productsPage.getProductsPrices(productsPage.getProductsList());
+        SoftAssertions softAssert = new SoftAssertions();
+        for (int i = 0; i < productsMinMaxPrices.get(0).size(); i++) {
+            softAssert.assertThat(productsMinMaxPrices.get(0).get(i).compareTo(fromPrice) >= 0
+                            || productsMinMaxPrices.get(1).get(i).compareTo(toPrice) <= 0)
+                    .as("Product price should be equal or greater than " + fromPrice + "or equal oe less than " + toPrice)
+                    .isEqualTo(true);
+        }
+        softAssert.assertAll();
+    }
+
 }
