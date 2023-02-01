@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum TopMenuElement {
-    ELECTRONICS("Electronics");
+    ELECTRONICS("Electronics"),
+    FASHION("Fashion");
 
     @Getter
     private final String name;

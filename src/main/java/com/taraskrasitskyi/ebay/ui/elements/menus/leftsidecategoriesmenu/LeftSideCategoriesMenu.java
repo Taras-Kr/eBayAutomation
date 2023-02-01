@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class LeftSideCategoriesMenu extends BasePage {
 
-    private final String expandingMenuItem = "//li//span[text()='%s']";
+    private final String expandingMenuItem = "//li//span[text()=%s]";
 
     private boolean isExpanding(LeftSideCategoriesMenuItem item) {
         return $x(String.format(expandingMenuItem, item.getName())).exists();
@@ -24,7 +24,7 @@ public class LeftSideCategoriesMenu extends BasePage {
 
     @Step("LeftSideCategoriesMenu: open menu item")
     public ProductsPage openMenuItem(LeftSideCategoriesMenuItemLink item) {
-        $x(String.format("//li//a[text()='%s']", item.getName())).click();
+        $x(String.format("//li//a[text()=%s]", item.getName())).click();
         return new ProductsPage();
     }
 }
