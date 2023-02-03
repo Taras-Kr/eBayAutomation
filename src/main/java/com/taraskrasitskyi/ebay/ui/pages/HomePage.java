@@ -6,13 +6,13 @@ import io.qameta.allure.Step;
 
 public class HomePage extends BasePage {
 
-    @Step ("HomePage : open eBay home page")
+    @Step ("HomePage: Open eBay home page")
     public HomePage open(){
         Selenide.open("https://www.ebay.com/");
         return this;
     }
 
-    @Step("HomePage : get top menu")
+    @Step("HomePage: Get top menu")
     public TopMenu getTopMenu() {
         return new TopMenu();
     }

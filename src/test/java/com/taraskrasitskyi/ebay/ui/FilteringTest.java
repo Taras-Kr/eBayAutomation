@@ -329,7 +329,7 @@ public class FilteringTest extends TestRunner {
             softAssert.assertThat(productsMinMaxPrices.get(0).get(i).compareTo(fromPrice) >= 0
                             || productsMinMaxPrices.get(1).get(i).compareTo(toPrice) <= 0)
                     .as("Product price should be equal or greater than " + fromPrice + "or equal oe less than " + toPrice)
-                    .isEqualTo(true);
+                    .isTrue();
         }
         softAssert.assertAll();
     }

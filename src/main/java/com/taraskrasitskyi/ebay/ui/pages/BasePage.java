@@ -1,5 +1,6 @@
 package com.taraskrasitskyi.ebay.ui.pages;
 
+import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.elements.Header;
 import io.qameta.allure.Step;
 
@@ -21,5 +22,10 @@ public abstract class BasePage {
     @Step("Get page caption")
     public String getPageCaption(){
         return $x("//h1").getText();
+    }
+
+    @Step("Check if element {selenideElement} is displayed")
+    public boolean isElementDisplayed(SelenideElement selenideElement){
+        return selenideElement.isDisplayed();
     }
 }
