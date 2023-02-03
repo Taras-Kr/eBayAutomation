@@ -15,8 +15,8 @@ public class Header extends BasePage {
         return new ShopByCategoryMenu();
     }
 
-    @Step("Header: Get log on link")
-    public SelenideElement getLogInLink(){
+    @Step("Header: Get 'Sign in' link")
+    public SelenideElement getSignInLink(){
         return $x("//span[@class = 'gh-ug-guest']//a[text()='Sign in']");
     }
 }

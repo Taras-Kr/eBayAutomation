@@ -12,10 +12,10 @@ public class LogInTest extends TestRunner {
     @Test(description = "Verify that the login link present on the home page")
     @Description(value = "Verify that the login link present on the home page")
     @TmsLink(value = "EBA-19")
-    public void verifyThatLogInLinkIsAvailable(){
+    public void verifyThatSignInLinkIsAvailable(){
         var header = new HomePage().open().getHeader();
-        assertThat(header.isElementDisplayed(header.getLogInLink()))
-                .as("The 'Log in' should be displayed")
+        assertThat(header.isElementDisplayed(header.getSignInLink()))
+                .as("The 'Sign in' link should be displayed")
                 .isTrue();
     }
 }
