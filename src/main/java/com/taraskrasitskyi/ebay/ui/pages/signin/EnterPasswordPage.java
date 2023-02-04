@@ -32,4 +32,10 @@ public class EnterPasswordPage extends BasePage {
         $(PASSWORD_INPUT_CSS_SELECTOR).sendKeys(Keys.ENTER);
         return new HomePage();
     }
+
+    @Step("EnterPasswordPage: Get password input type")
+    public String getPasswordInputType(){
+        return $(PASSWORD_INPUT_CSS_SELECTOR).getAttribute("type");
+    }
+
 }

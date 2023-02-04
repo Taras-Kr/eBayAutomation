@@ -95,4 +95,20 @@ public class SignInTest extends TestRunner {
                 .as("The user account button should be displayed")
                 .isTrue();
     }
+
+    @Test(description = "Verify that the password is masked")
+    @Description(value = "Verify that the password is masked")
+    @TmsLink(value ="EBA-23")
+    public void verifyThatPasswordIsMasked(){
+       var passwordPage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .pressEnterInEmailOrUserNameInput()
+                .setPassword(credentialProperty.getValidPassword());
+       assertThat(passwordPage.getPasswordInputType())
+               .as("Password input type should has type 'password'")
+               .isEqualTo("password");
+    }
 }

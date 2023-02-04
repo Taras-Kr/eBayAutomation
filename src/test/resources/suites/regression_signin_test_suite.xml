@@ -9,6 +9,7 @@
                     <include name="verifyThatUserNameSignInPageIsOpened"/>
                     <include name="verifyThatUserCanSighInWithCredentialsUsingButtons"/>
                     <include name="verifyThatUserCanSighInWithCredentialsUsingEnter"/>
+                    <include name="verifyThatPasswordIsMasked"/>
                 </methods>
             </class>
         </classes>
