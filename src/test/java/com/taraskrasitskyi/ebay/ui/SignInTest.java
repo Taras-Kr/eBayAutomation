@@ -60,4 +60,17 @@ public class SignInTest extends TestRunner {
                 .as("The user account button should be displayed")
                 .isTrue();
     }
+
+    @Test(description = "Verify that an unlogged user is able to sign in with the valid credentials using" +
+            " the 'Enter' key on the keyboard instead button 'Continue' on" +
+            " the 'Enter Email or username' page and instead of using the button 'Sign in' on" +
+            " the 'Enter Password' page")
+    @Description(value = "Verify that an unlogged user is able to sign in with the valid credentials using" +
+            " the 'Enter' key on the keyboard instead button 'Continue' on" +
+            " the 'Enter Email or username' page and instead of using the button 'Sign in' on" +
+            " the 'Enter Password' page")
+    @TmsLink(value = "EBA-22")
+    public void verifyThatUserCanSighInWithCredentialsUsingEnter(){
+
+    }
 }
