@@ -23,7 +23,7 @@ public class Header extends BasePage {
         return $x(ENTER_EMAIL_OR_USER_NAME_LINK_XPATH).isDisplayed();
     }
     @Step("Header: Open the 'User name sign in' page")
-    public EnterEmailOrUserNamePage openUserNameSignInPage(){
+    public EnterEmailOrUserNamePage openEnterEmailOrUserNamePage(){
         $x(ENTER_EMAIL_OR_USER_NAME_LINK_XPATH).click();
         return new EnterEmailOrUserNamePage();
     }

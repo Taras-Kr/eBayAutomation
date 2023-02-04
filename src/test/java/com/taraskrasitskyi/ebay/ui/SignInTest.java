@@ -30,7 +30,7 @@ public class SignInTest extends TestRunner {
         var signInUserNamePage = new HomePage()
                 .open()
                 .getHeader()
-                .openUserNameSignInPage();
+                .openEnterEmailOrUserNamePage();
         assertThat(signInUserNamePage.getHeaderText())
                 .as("Page header should be 'Hello'")
                 .isEqualTo("Hello");
@@ -47,11 +47,16 @@ public class SignInTest extends TestRunner {
             "on the 'Enter Password' page")
     @TmsLink(value = "EBA-21")
     public void verifyThatUserCanSighInWithCredentialsUsingButtons() {
-        var header = new HomePage()
+        var enterEmailOrUserNamePage = new HomePage()
                 .open()
                 .getHeader()
-                .openUserNameSignInPage()
-                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .openEnterEmailOrUserNamePage();
+
+        assertThat(enterEmailOrUserNamePage.isInputEmailOrUserNameDisplayed())
+                .as("'Sign in' page is not opened. reCaptcha might be present")
+                .isTrue();
+
+        var header = enterEmailOrUserNamePage.setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
                 .pressContinueButton()
                 .setPassword(credentialProperty.getValidPassword())
                 .pressSignInButton()
@@ -70,7 +75,24 @@ public class SignInTest extends TestRunner {
             " the 'Enter Email or username' page and instead of using the button 'Sign in' on" +
             " the 'Enter Password' page")
     @TmsLink(value = "EBA-22")
-    public void verifyThatUserCanSighInWithCredentialsUsingEnter(){
+    public void verifyThatUserCanSighInWithCredentialsUsingEnter() {
+        var enterEmailOrUserNamePage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage();
 
+        assertThat(enterEmailOrUserNamePage.isInputEmailOrUserNameDisplayed())
+                .as("'Sign in' page is not opened. reCaptcha might be present")
+                .isTrue();
+
+        var header = enterEmailOrUserNamePage
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .pressEnterInEmailOrUserNameInput()
+                .setPassword(credentialProperty.getValidPassword())
+                .pressEnterInPasswordInput()
+                .getHeader();
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The user account button should be displayed")
+                .isTrue();
     }
 }
