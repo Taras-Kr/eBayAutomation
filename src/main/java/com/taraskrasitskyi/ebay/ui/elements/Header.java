@@ -1,14 +1,17 @@
 package com.taraskrasitskyi.ebay.ui.elements;
 
-import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.elements.menus.shopbycategorymenu.ShopByCategoryMenu;
 import com.taraskrasitskyi.ebay.ui.pages.BasePage;
-import com.taraskrasitskyi.ebay.ui.pages.signin.UserNameSignInPage;
+import com.taraskrasitskyi.ebay.ui.pages.signin.EnterEmailOrUserNamePage;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Header extends BasePage {
+
+    private final String ENTER_EMAIL_OR_USER_NAME_LINK_XPATH =  "//span[@class = 'gh-ug-guest']//a[text()='Sign in']";
+    private final String USER_ACCOUNT_BUTTON_CSS_SELECTOR = "button#gh-ug";
 
     @Step("Header: Open 'Shop By Category' menu")
     public ShopByCategoryMenu openShopByCategoryMenu() {
@@ -16,14 +19,17 @@ public class Header extends BasePage {
         return new ShopByCategoryMenu();
     }
 
-    @Step("Header: Get 'Sign in' link")
-    public SelenideElement getSignInLink(){
-        return $x("//span[@class = 'gh-ug-guest']//a[text()='Sign in']");
+    public boolean isEnterEmailOrUserNameIsDisplayed(){
+        return $x(ENTER_EMAIL_OR_USER_NAME_LINK_XPATH).isDisplayed();
+    }
+    @Step("Header: Open the 'User name sign in' page")
+    public EnterEmailOrUserNamePage openUserNameSignInPage(){
+        $x(ENTER_EMAIL_OR_USER_NAME_LINK_XPATH).click();
+        return new EnterEmailOrUserNamePage();
     }
 
-    @Step("Header: Open the 'User name sign in' page")
-    public UserNameSignInPage openUserNameSignInPage(){
-        getSignInLink().click();
-        return new UserNameSignInPage();
+    @Step("Header: Check if user account button is displayed")
+    public boolean isUserAccountButtonDisplayed(){
+        return $(USER_ACCOUNT_BUTTON_CSS_SELECTOR).isDisplayed();
     }
 }

@@ -29,3 +29,5 @@ public abstract class BasePage {
         return selenideElement.isDisplayed();
     }
 }
+
+
