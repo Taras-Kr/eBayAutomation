@@ -111,4 +111,23 @@ public class SignInTest extends TestRunner {
                .as("Password input type should has type 'password'")
                .isEqualTo("password");
     }
+
+    @Test(description = "Verify the option 'Switch account' on the 'Enter Password' page")
+    @Description(value= "Verify the option 'Switch account' on the 'Enter Password' page")
+    @TmsLink(value ="EBA-26")
+    public void verifyThatUserCanSwitchAccount(){
+        var enterEmailOrPasswordPage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .pressContinueButton()
+                .clickOnSwitchAccountLink();
+        assertThat(enterEmailOrPasswordPage.getHeaderText())
+                .as("'Enter email or password' page should have header 'Hello'")
+                .isEqualTo("Hello");
+        assertThat(enterEmailOrPasswordPage.getSubHeaderText().contains("Sign in to eBay"))
+                .as("'Enter email or password' page should have sub header with 'Sign in to eBay'")
+                .isTrue();
+   }
 }

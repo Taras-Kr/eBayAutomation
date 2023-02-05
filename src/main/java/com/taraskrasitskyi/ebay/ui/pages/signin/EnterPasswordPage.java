@@ -38,4 +38,10 @@ public class EnterPasswordPage extends BasePage {
         return $(PASSWORD_INPUT_CSS_SELECTOR).getAttribute("type");
     }
 
+    @Step("EnterPasswordPage: click on the 'Switch account' link")
+    public EnterEmailOrUserNamePage clickOnSwitchAccountLink(){
+        $("a#switch-account-anchor").click();
+        return new EnterEmailOrUserNamePage();
+    }
+
 }
