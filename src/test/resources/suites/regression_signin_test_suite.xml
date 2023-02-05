@@ -10,7 +10,7 @@
                     <include name="verifyThatUserCanSighInWithCredentialsUsingButtons"/>
                     <include name="verifyThatUserCanSighInWithCredentialsUsingEnter"/>
                     <include name="verifyThatPasswordIsMasked"/>
-                    <include name="clickOnSwitchAccountLink"/>
+                    <include name="verifyThatUserCanSwitchAccount"/>
                 </methods>
             </class>
         </classes>
