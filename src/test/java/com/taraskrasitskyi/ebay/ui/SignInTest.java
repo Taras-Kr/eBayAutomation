@@ -1,5 +1,6 @@
 package com.taraskrasitskyi.ebay.ui;
 
+import com.codeborne.selenide.Selenide;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.CredentialProperty;
 import com.taraskrasitskyi.ebay.utils.TestRunner;
@@ -110,5 +111,36 @@ public class SignInTest extends TestRunner {
        assertThat(passwordPage.getPasswordInputType())
                .as("Password input type should has type 'password'")
                .isEqualTo("password");
+    }
+
+    @Test(description ="")
+    @Description(value = "")
+    @TmsLink(value = "EBA-24")
+    public void verifyThatUserStayLogged(){
+        var header = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                // must call check the 'stay in' checkbox
+                .pressContinueButton()
+                .setPassword(credentialProperty.getValidPassword())
+                .pressSignInButton()
+                .getHeader();
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The user account button should be displayed")
+                .isTrue();
+
+        Selenide.closeWindow();
+        header = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage().getHeader();
+//        assertThat(header.isUserAccountButtonDisplayed())
+//                .as("The user account button should be displayed")
+//                .isTrue();
+
+new HomePage();
+
     }
 }
