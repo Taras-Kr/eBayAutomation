@@ -18,7 +18,7 @@ public class SignInTest extends TestRunner {
     @TmsLink(value = "EBA-19")
     public void verifyThatSignInLinkIsAvailable() {
         var header = new HomePage().open().getHeader();
-        assertThat(header.isEnterEmailOrUserNameIsDisplayed())
+        assertThat(header.isEnterEmailOrUserNameLinkIsDisplayed())
                 .as("The 'Sign in' link should be displayed")
                 .isTrue();
     }
@@ -98,24 +98,24 @@ public class SignInTest extends TestRunner {
 
     @Test(description = "Verify that the password is masked")
     @Description(value = "Verify that the password is masked")
-    @TmsLink(value ="EBA-23")
-    public void verifyThatPasswordIsMasked(){
-       var passwordPage = new HomePage()
+    @TmsLink(value = "EBA-23")
+    public void verifyThatPasswordIsMasked() {
+        var passwordPage = new HomePage()
                 .open()
                 .getHeader()
                 .openEnterEmailOrUserNamePage()
                 .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
                 .pressEnterInEmailOrUserNameInput()
                 .setPassword(credentialProperty.getValidPassword());
-       assertThat(passwordPage.getPasswordInputType())
-               .as("Password input type should has type 'password'")
-               .isEqualTo("password");
+        assertThat(passwordPage.getPasswordInputType())
+                .as("Password input type should has type 'password'")
+                .isEqualTo("password");
     }
 
     @Test(description = "Verify the option 'Switch account' on the 'Enter Password' page")
-    @Description(value= "Verify the option 'Switch account' on the 'Enter Password' page")
-    @TmsLink(value ="EBA-26")
-    public void verifyThatUserCanSwitchAccount(){
+    @Description(value = "Verify the option 'Switch account' on the 'Enter Password' page")
+    @TmsLink(value = "EBA-26")
+    public void verifyThatUserCanSwitchAccount() {
         var enterEmailOrPasswordPage = new HomePage()
                 .open()
                 .getHeader()
@@ -129,5 +129,30 @@ public class SignInTest extends TestRunner {
         assertThat(enterEmailOrPasswordPage.getSubHeaderText().contains("Sign in to eBay"))
                 .as("'Enter email or password' page should have sub header with 'Sign in to eBay'")
                 .isTrue();
-   }
+    }
+
+    @Test(description = "Verify that a logged user is able to sign out")
+    @Description(value = "Verify that a logged user is able to sign out")
+    @TmsLink(value = "EBA-27")
+    public void verifyThatUserCanSignOut() {
+        var header = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .pressContinueButton()
+                .setPassword(credentialProperty.getValidPassword())
+                .pressSignInButton()
+                .getHeader();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'user account' button should be displayed")
+                .isTrue();
+
+        header = header.getUserAccountMenu().signOut();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'user account' button shouldn't be displayed")
+                .isFalse();
+    }
 }
