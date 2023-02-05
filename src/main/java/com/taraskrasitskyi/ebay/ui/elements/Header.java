@@ -1,5 +1,6 @@
 package com.taraskrasitskyi.ebay.ui.elements;
 
+import com.taraskrasitskyi.ebay.ui.elements.menus.UserAccountMenu;
 import com.taraskrasitskyi.ebay.ui.elements.menus.shopbycategorymenu.ShopByCategoryMenu;
 import com.taraskrasitskyi.ebay.ui.pages.BasePage;
 import com.taraskrasitskyi.ebay.ui.pages.signin.EnterEmailOrUserNamePage;
@@ -19,7 +20,7 @@ public class Header extends BasePage {
         return new ShopByCategoryMenu();
     }
 
-    public boolean isEnterEmailOrUserNameIsDisplayed(){
+    public boolean isEnterEmailOrUserNameLinkIsDisplayed(){
         return $x(ENTER_EMAIL_OR_USER_NAME_LINK_XPATH).isDisplayed();
     }
     @Step("Header: Open the 'User name sign in' page")
@@ -31,5 +32,11 @@ public class Header extends BasePage {
     @Step("Header: Check if user account button is displayed")
     public boolean isUserAccountButtonDisplayed(){
         return $(USER_ACCOUNT_BUTTON_CSS_SELECTOR).isDisplayed();
+    }
+
+    @Step("Header: Press user account button")
+    public UserAccountMenu getUserAccountMenu(){
+        $(USER_ACCOUNT_BUTTON_CSS_SELECTOR).click();
+        return new UserAccountMenu();
     }
 }
