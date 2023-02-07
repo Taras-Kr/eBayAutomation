@@ -11,7 +11,6 @@
                     <include name="verifyThatUserCanSighInWithCredentialsUsingEnter"/>
                     <include name="verifyThatPasswordIsMasked"/>
                     <include name="verifyThatUserCanSwitchAccount"/>
-                    <include name="verifyThatUserCanSwitchAccount"/>
                     <include name="verifyStaySignedInIsUnchecked"/>
                     <include name="verifyThatUserStayLogged"/>
                 </methods>
