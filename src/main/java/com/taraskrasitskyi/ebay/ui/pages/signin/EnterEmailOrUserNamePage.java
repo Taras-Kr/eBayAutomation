@@ -11,6 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class EnterEmailOrUserNamePage extends BasePage {
 
     private final String EMAIL_OR_USER_NAME_INPUT_CSS_SELECTOR = "input#userid";
+    private final String STAY_SIGN_IN_CHECK_BOX_CSS_SELECTOR = "input#kmsi-checkbox";
 
     @Step("UserNameSignInPage: Get header text")
     public String getHeaderText() {
@@ -46,5 +47,27 @@ public class EnterEmailOrUserNamePage extends BasePage {
     public EnterPasswordPage pressContinueButton() {
         $("button#signin-continue-btn").click();
         return new EnterPasswordPage();
+    }
+
+    @Step("EnterEmailOrUserNamePage: Check if 'Stay Sign in' check box is checked")
+    private boolean isStaySignInCheckBoxChecked() {
+        String checkBoxValue = $(STAY_SIGN_IN_CHECK_BOX_CSS_SELECTOR).getAttribute("value");
+        return checkBoxValue.equals("1");
+    }
+
+    @Step("EnterEmailOrUserNamePage: Select 'Stay Sign in' check box")
+    public EnterEmailOrUserNamePage selectStaySignedInCheckBox() {
+        if (!isStaySignInCheckBoxChecked()) {
+            $(STAY_SIGN_IN_CHECK_BOX_CSS_SELECTOR).click();
+        }
+        return this;
+    }
+
+    @Step ("EnterEmailOrUserNamePage: Unselect 'Stay Sign in' check box")
+    public EnterEmailOrUserNamePage unselectStaySignedInCheckBox() {
+        if (isStaySignInCheckBoxChecked()) {
+            $(STAY_SIGN_IN_CHECK_BOX_CSS_SELECTOR).click();
+        }
+        return this;
     }
 }
