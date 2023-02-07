@@ -1,7 +1,6 @@
 package com.taraskrasitskyi.ebay.ui.pages;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import com.taraskrasitskyi.ebay.ui.elements.menus.topmenu.TopMenu;
 import io.qameta.allure.Step;
 

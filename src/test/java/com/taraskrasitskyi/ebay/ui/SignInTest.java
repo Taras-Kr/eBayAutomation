@@ -10,7 +10,6 @@ import io.qameta.allure.TmsLink;
 import org.openqa.selenium.Cookie;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +23,7 @@ public class SignInTest extends TestRunner {
     @TmsLink(value = "EBA-19")
     public void verifyThatSignInLinkIsAvailable() {
         var header = new HomePage().open().getHeader();
-        assertThat(header.isEnterEmailOrUserNameIsDisplayed())
+        assertThat(header.isEnterEmailOrUserNameLinkIsDisplayed())
                 .as("The 'Sign in' link should be displayed")
                 .isTrue();
     }
@@ -118,8 +117,87 @@ public class SignInTest extends TestRunner {
                 .isEqualTo("password");
     }
 
-    @Test(description = "")
-    @Description(value = "")
+    @Test(description = "Verify the option 'Switch account' on the 'Enter Password' page")
+    @Description(value = "Verify the option 'Switch account' on the 'Enter Password' page")
+    @TmsLink(value = "EBA-26")
+    public void verifyThatUserCanSwitchAccount() {
+        var enterEmailOrPasswordPage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .pressContinueButton()
+                .clickOnSwitchAccountLink();
+        assertThat(enterEmailOrPasswordPage.getHeaderText())
+                .as("'Enter email or password' page should have header 'Hello'")
+                .isEqualTo("Hello");
+        assertThat(enterEmailOrPasswordPage.getSubHeaderText().contains("Sign in to eBay"))
+                .as("'Enter email or password' page should have sub header with 'Sign in to eBay'")
+                .isTrue();
+    }
+
+    @Test(description = "Verify that a logged user is able to sign out")
+    @Description(value = "Verify that a logged user is able to sign out")
+    @TmsLink(value = "EBA-27")
+    public void verifyThatUserCanSignOut() {
+        var header = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .pressContinueButton()
+                .setPassword(credentialProperty.getValidPassword())
+                .pressSignInButton()
+                .getHeader();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'user account' button should be displayed")
+                .isTrue();
+
+        header = header.getUserAccountMenu().signOut();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'user account' button shouldn't be displayed")
+                .isFalse();
+    }
+
+    @Test(description = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is unchecked")
+    @Description(value = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is unchecked")
+    @TmsLink(value = "EBA_25")
+    public void verifyStaySignedInIsUnchecked() {
+        var header = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .unselectStaySignedInCheckBox()
+                .pressContinueButton()
+                .setPassword(credentialProperty.getValidPassword())
+                .pressSignInButton()
+                .getHeader();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'account button' should be displayed")
+                .isTrue();
+
+        //When cookies without expiration date are deleted it's simulate closing browser
+        Set<Cookie> cookies = WebDriverRunner.getWebDriver().manage().getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getExpiry() == null) {
+                WebDriverRunner.getWebDriver().manage().deleteCookie(cookie);
+            }
+        }
+        Selenide.refresh();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'account button' shouldn't be displayed")
+                .isFalse();
+        new HomePage();
+    }
+
+
+    @Test(description = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is checked")
+    @Description(value = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is checked")
     @TmsLink(value = "EBA-24")
     public void verifyThatUserStayLogged() {
         var header = new HomePage()
@@ -127,7 +205,7 @@ public class SignInTest extends TestRunner {
                 .getHeader()
                 .openEnterEmailOrUserNamePage()
                 .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
-                // must call check the 'stay in' checkbox
+                .selectStaySignedInCheckBox()
                 .pressContinueButton()
                 .setPassword(credentialProperty.getValidPassword())
                 .pressSignInButton()
@@ -135,26 +213,18 @@ public class SignInTest extends TestRunner {
         assertThat(header.isUserAccountButtonDisplayed())
                 .as("The user account button should be displayed")
                 .isTrue();
-
-//        Set<Cookie> cookieAll = WebDriverRunner.getWebDriver().manage().getCookies();
-//        for (Cookie cookie : cookieAll) {
-//            if (cookie.getExpiry() == null) {
-//                WebDriverRunner.getWebDriver().manage().deleteCookie(cookie);
-//            }
-//        }
-        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+//When cookies without expiration date are deleted it's simulate closing browser
+        Set<Cookie> cookieAll = WebDriverRunner.getWebDriver().manage().getCookies();
+        for (Cookie cookie : cookieAll) {
+            if (cookie.getExpiry() == null) {
+                WebDriverRunner.getWebDriver().manage().deleteCookie(cookie);
+            }
+        }
         Selenide.refresh();
-//        new HomePage().open();
-//        for (Cookie cookie : cookieAll) {
-//            if (cookie.getExpiry() == null) {
-//
-//                WebDriverRunner.getWebDriver().manage().addCookie(cookie);
-//            }
-//        }
-//
-        //WebDriverRunner.getWebDriver().get("https://www.ebay.com/");
 
-        new HomePage();
-
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The user account button should be displayed")
+                .isTrue();
     }
 }
+
