@@ -192,7 +192,6 @@ public class SignInTest extends TestRunner {
         assertThat(header.isUserAccountButtonDisplayed())
                 .as("The 'account button' shouldn't be displayed")
                 .isFalse();
-        new HomePage();
     }
 
 
