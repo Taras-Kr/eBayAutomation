@@ -28,20 +28,19 @@ public class EnterPasswordPage extends BasePage {
     }
 
     @Step("Press 'Enter' in the field for enter password")
-    public HomePage pressEnterInPasswordInput(){
+    public HomePage pressEnterInPasswordInput() {
         $(PASSWORD_INPUT_CSS_SELECTOR).sendKeys(Keys.ENTER);
         return new HomePage();
     }
 
     @Step("EnterPasswordPage: Get password input type")
-    public String getPasswordInputType(){
+    public String getPasswordInputType() {
         return $(PASSWORD_INPUT_CSS_SELECTOR).getAttribute("type");
     }
 
     @Step("EnterPasswordPage: click on the 'Switch account' link")
-    public EnterEmailOrUserNamePage clickOnSwitchAccountLink(){
+    public EnterEmailOrUserNamePage clickOnSwitchAccountLink() {
         $("a#switch-account-anchor").click();
         return new EnterEmailOrUserNamePage();
     }
-
-}
+ }

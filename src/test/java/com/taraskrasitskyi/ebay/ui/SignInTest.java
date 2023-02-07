@@ -1,11 +1,16 @@
 package com.taraskrasitskyi.ebay.ui;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import com.taraskrasitskyi.ebay.utils.CredentialProperty;
 import com.taraskrasitskyi.ebay.utils.TestRunner;
 import io.qameta.allure.Description;
 import io.qameta.allure.TmsLink;
+import org.openqa.selenium.Cookie;
 import org.testng.annotations.Test;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -155,4 +160,40 @@ public class SignInTest extends TestRunner {
                 .as("The 'user account' button shouldn't be displayed")
                 .isFalse();
     }
+
+    @Test(description = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is unchecked")
+    @Description(value = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is unchecked")
+    @TmsLink(value = "EBA_25")
+    public void verifyStaySignedInIsUnchecked() {
+        var header = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .unselectStaySignedInCheckBox()
+                .pressContinueButton()
+                .setPassword(credentialProperty.getValidPassword())
+                .pressSignInButton()
+                .getHeader();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'account button' should be displayed")
+                .isTrue();
+
+        //When cookies without expiration date are deleted it's simulate close browser
+        Set<Cookie> cookies = WebDriverRunner.getWebDriver().manage().getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getExpiry() == null) {
+                WebDriverRunner.getWebDriver().manage().deleteCookie(cookie);
+            }
+        }
+        Selenide.refresh();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The 'account button' shouldn't be displayed")
+                .isFalse();
+        new HomePage();
+    }
+
 }
+
