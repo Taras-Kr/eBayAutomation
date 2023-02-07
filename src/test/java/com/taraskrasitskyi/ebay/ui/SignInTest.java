@@ -180,7 +180,7 @@ public class SignInTest extends TestRunner {
                 .as("The 'account button' should be displayed")
                 .isTrue();
 
-        //When cookies without expiration date are deleted it's simulate close browser
+        //When cookies without expiration date are deleted it's simulate closing browser
         Set<Cookie> cookies = WebDriverRunner.getWebDriver().manage().getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getExpiry() == null) {
@@ -195,5 +195,36 @@ public class SignInTest extends TestRunner {
         new HomePage();
     }
 
+
+    @Test(description = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is checked")
+    @Description(value = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is checked")
+    @TmsLink(value = "EBA-24")
+    public void verifyThatUserStayLogged() {
+        var header = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .selectStaySignedInCheckBox()
+                .pressContinueButton()
+                .setPassword(credentialProperty.getValidPassword())
+                .pressSignInButton()
+                .getHeader();
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The user account button should be displayed")
+                .isTrue();
+//When cookies without expiration date are deleted it's simulate closing browser
+        Set<Cookie> cookieAll = WebDriverRunner.getWebDriver().manage().getCookies();
+        for (Cookie cookie : cookieAll) {
+            if (cookie.getExpiry() == null) {
+                WebDriverRunner.getWebDriver().manage().deleteCookie(cookie);
+            }
+        }
+        Selenide.refresh();
+
+        assertThat(header.isUserAccountButtonDisplayed())
+                .as("The user account button should be displayed")
+                .isTrue();
+    }
 }
 

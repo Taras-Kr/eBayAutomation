@@ -13,6 +13,7 @@
                     <include name="verifyThatUserCanSwitchAccount"/>
                     <include name="verifyThatUserCanSwitchAccount"/>
                     <include name="verifyStaySignedInIsUnchecked"/>
+                    <include name="verifyThatUserStayLogged"/>
                 </methods>
             </class>
         </classes>

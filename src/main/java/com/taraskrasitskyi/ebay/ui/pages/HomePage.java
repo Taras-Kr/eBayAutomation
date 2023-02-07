@@ -6,8 +6,8 @@ import io.qameta.allure.Step;
 
 public class HomePage extends BasePage {
 
-    @Step ("HomePage: Open eBay home page")
-    public HomePage open(){
+    @Step("HomePage: Open eBay home page")
+    public HomePage open() {
         Selenide.open("https://www.ebay.com/");
         return this;
     }
