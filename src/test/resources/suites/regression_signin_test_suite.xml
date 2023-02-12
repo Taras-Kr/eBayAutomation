@@ -14,6 +14,7 @@
                     <include name="verifyStaySignedInIsUnchecked"/>
                     <include name="verifyThatUserStayLogged"/>
                     <include name="verifyErrorMessageWhenInvalidEmail"/>
+                    <include name="verifyErrorMessageWhenEmailOrUserNameBlank"/>
                 </methods>
             </class>
         </classes>

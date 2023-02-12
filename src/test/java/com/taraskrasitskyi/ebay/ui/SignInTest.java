@@ -290,5 +290,25 @@ public class SignInTest extends TestRunner {
                 .as("Error message should contain 'Oops, that's not a match.'")
                 .isTrue();
     }
+
+    @Test(description = "Verify that the error message appears when an unlogged user leaves the field 'email or username' blank")
+    @Description(value = "Verify that the error message appears when an unlogged user leaves the field 'email or username' blank")
+    @TmsLink(value = "EBA-29")
+    public void verifyErrorMessageWhenEmailOrUserNameBlank(){
+        var enterEmailOrUserNamePage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .pressContinueButton();
+
+        assertThat(enterEmailOrUserNamePage instanceof EnterEmailOrUserNamePage)
+                .as("'Enter email or user name' should be opened")
+                .isTrue();
+
+        assertThat(((EnterEmailOrUserNamePage)enterEmailOrUserNamePage).getSignInErrMsg().contains("Oops, that's not a match."))
+                .as("Error message should contain text 'Oops, that's not a match.'")
+                .isTrue();
+
+    }
 }
 
