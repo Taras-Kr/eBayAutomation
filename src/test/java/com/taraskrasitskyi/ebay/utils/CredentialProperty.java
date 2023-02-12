@@ -18,12 +18,15 @@ public class CredentialProperty {
         }
     }
 
-    public String getValidEmailOrUserName(){
-        return credentialProperty.getProperty("VALID_EMAIL_OR_USER_NAME");
+    public String getValidEmail(){
+        return credentialProperty.getProperty("VALID_EMAIL");
     }
 
     public String getValidPassword(){
         return credentialProperty.getProperty("VALID_PASSWORD");
+    }
+    public String getInvalidEmail(){
+        return credentialProperty.getProperty("INVALID_EMAIL");
     }
 
 }
