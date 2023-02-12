@@ -3,6 +3,8 @@ package com.taraskrasitskyi.ebay.ui;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
+import com.taraskrasitskyi.ebay.ui.pages.signin.EnterEmailOrUserNamePage;
+import com.taraskrasitskyi.ebay.ui.pages.signin.EnterPasswordPage;
 import com.taraskrasitskyi.ebay.utils.CredentialProperty;
 import com.taraskrasitskyi.ebay.utils.TestRunner;
 import io.qameta.allure.Description;
@@ -61,9 +63,15 @@ public class SignInTest extends TestRunner {
                 .as("'Sign in' page is not opened. reCaptcha might be present")
                 .isTrue();
 
-        var header = enterEmailOrUserNamePage.setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
-                .pressContinueButton()
-                .setPassword(credentialProperty.getValidPassword())
+        var enterPasswordPage = enterEmailOrUserNamePage
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Enter password page should be opened")
+                .isTrue();
+
+        var header = ((EnterPasswordPage) enterPasswordPage).setPassword(credentialProperty.getValidPassword())
                 .pressSignInButton()
                 .getHeader();
         assertThat(header.isUserAccountButtonDisplayed())
@@ -90,12 +98,19 @@ public class SignInTest extends TestRunner {
                 .as("'Sign in' page is not opened. reCaptcha might be present")
                 .isTrue();
 
-        var header = enterEmailOrUserNamePage
-                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
-                .pressEnterInEmailOrUserNameInput()
+        var enterPasswordPage = enterEmailOrUserNamePage
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressEnterInEmailOrUserNameInput();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Password page' should be opened")
+                .isTrue();
+
+        var header = ((EnterPasswordPage) enterPasswordPage)
                 .setPassword(credentialProperty.getValidPassword())
                 .pressEnterInPasswordInput()
                 .getHeader();
+
         assertThat(header.isUserAccountButtonDisplayed())
                 .as("The user account button should be displayed")
                 .isTrue();
@@ -109,10 +124,16 @@ public class SignInTest extends TestRunner {
                 .open()
                 .getHeader()
                 .openEnterEmailOrUserNamePage()
-                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
-                .pressEnterInEmailOrUserNameInput()
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressEnterInEmailOrUserNameInput();
+
+        assertThat(passwordPage instanceof EnterPasswordPage)
+                .as("'Password page should be opened'")
+                .isTrue();
+        ((EnterPasswordPage)passwordPage)
                 .setPassword(credentialProperty.getValidPassword());
-        assertThat(passwordPage.getPasswordInputType())
+
+        assertThat( ((EnterPasswordPage)passwordPage).getPasswordInputType())
                 .as("Password input type should has type 'password'")
                 .isEqualTo("password");
     }
@@ -121,13 +142,19 @@ public class SignInTest extends TestRunner {
     @Description(value = "Verify the option 'Switch account' on the 'Enter Password' page")
     @TmsLink(value = "EBA-26")
     public void verifyThatUserCanSwitchAccount() {
-        var enterEmailOrPasswordPage = new HomePage()
+        var enterPasswordPage = new HomePage()
                 .open()
                 .getHeader()
                 .openEnterEmailOrUserNamePage()
-                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
-                .pressContinueButton()
-                .clickOnSwitchAccountLink();
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Password page' should be opened")
+                .isTrue();
+
+        var enterEmailOrPasswordPage = ((EnterPasswordPage) enterPasswordPage).clickOnSwitchAccountLink();
+
         assertThat(enterEmailOrPasswordPage.getHeaderText())
                 .as("'Enter email or password' page should have header 'Hello'")
                 .isEqualTo("Hello");
@@ -140,12 +167,18 @@ public class SignInTest extends TestRunner {
     @Description(value = "Verify that a logged user is able to sign out")
     @TmsLink(value = "EBA-27")
     public void verifyThatUserCanSignOut() {
-        var header = new HomePage()
+        var enterPasswordPage = new HomePage()
                 .open()
                 .getHeader()
                 .openEnterEmailOrUserNamePage()
-                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
-                .pressContinueButton()
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Password page' should be opened")
+                .isTrue();
+
+        var header = ((EnterPasswordPage) enterPasswordPage)
                 .setPassword(credentialProperty.getValidPassword())
                 .pressSignInButton()
                 .getHeader();
@@ -165,13 +198,19 @@ public class SignInTest extends TestRunner {
     @Description(value = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is unchecked")
     @TmsLink(value = "EBA_25")
     public void verifyStaySignedInIsUnchecked() {
-        var header = new HomePage()
+        var enterPasswordPage = new HomePage()
                 .open()
                 .getHeader()
                 .openEnterEmailOrUserNamePage()
-                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .setEmailOrUserName(credentialProperty.getValidEmail())
                 .unselectStaySignedInCheckBox()
-                .pressContinueButton()
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Password page' should be opened")
+                .isTrue();
+
+        var header = ((EnterPasswordPage) enterPasswordPage)
                 .setPassword(credentialProperty.getValidPassword())
                 .pressSignInButton()
                 .getHeader();
@@ -194,21 +233,27 @@ public class SignInTest extends TestRunner {
                 .isFalse();
     }
 
-
     @Test(description = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is checked")
     @Description(value = "Verify the option 'Stay signed in' on the 'Enter Email or username' page when the option is checked")
     @TmsLink(value = "EBA-24")
     public void verifyThatUserStayLogged() {
-        var header = new HomePage()
+        var enterPasswordPage = new HomePage()
                 .open()
                 .getHeader()
                 .openEnterEmailOrUserNamePage()
-                .setEmailOrUserName(credentialProperty.getValidEmailOrUserName())
+                .setEmailOrUserName(credentialProperty.getValidEmail())
                 .selectStaySignedInCheckBox()
-                .pressContinueButton()
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Password page' should be opened")
+                .isTrue();
+
+        var header = ((EnterPasswordPage) enterPasswordPage)
                 .setPassword(credentialProperty.getValidPassword())
                 .pressSignInButton()
                 .getHeader();
+
         assertThat(header.isUserAccountButtonDisplayed())
                 .as("The user account button should be displayed")
                 .isTrue();
@@ -223,6 +268,26 @@ public class SignInTest extends TestRunner {
 
         assertThat(header.isUserAccountButtonDisplayed())
                 .as("The user account button should be displayed")
+                .isTrue();
+    }
+
+    @Test(description = "Verify that the error message appears when an unlogged user enters an invalid email in the 'Email or user name' field")
+    @Description(value = "Verify that the error message appears when an unlogged user enters an invalid email in the 'Email or user name' field")
+    @TmsLink(value = "EBA-28")
+    public void verifyErrorMessageWhenInvalidEmail() {
+        var enterEmailOrUserNamePage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getInvalidEmail())
+                .pressContinueButton();
+
+        assertThat(enterEmailOrUserNamePage instanceof EnterEmailOrUserNamePage)
+                .as("'EnterEmailOrUserName' page should be active")
+                .isTrue();
+
+        assertThat(((EnterEmailOrUserNamePage) enterEmailOrUserNamePage).getSignInErrMsg().contains("Oops, that's not a match."))
+                .as("Error message should contain 'Oops, that's not a match.'")
                 .isTrue();
     }
 }
