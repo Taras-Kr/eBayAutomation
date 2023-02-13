@@ -5,7 +5,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.pages.BasePage;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
 import io.qameta.allure.Step;
-import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -13,6 +12,7 @@ public class EnterPasswordPage extends BasePage {
 
     private final String PASSWORD_INPUT_CSS_SELECTOR = "input#pass";
     private final String PASSWORD_ERR_MSG_HOLDER_CSS_SELECTOR = "p#errormsg";
+    private final String SIGN_IN_BUTTON_CSS_SELECTOR = "button#sgnBt";
 
     @Step("EnterPasswordPage: Set password")
     public EnterPasswordPage setPassword(String password) {
@@ -25,13 +25,13 @@ public class EnterPasswordPage extends BasePage {
 
     @Step("EnterPasswordPage: Press 'Sign in' button")
     public <T extends BasePage> T pressSignInButton() {
-        $("button#sgnBt").click();
+        $(SIGN_IN_BUTTON_CSS_SELECTOR).click();
         return resultSubmitPassword();
     }
 
     @Step("Press 'Enter' in the field for enter password")
     public <T extends BasePage> T pressEnterInPasswordInput() {
-        $(PASSWORD_INPUT_CSS_SELECTOR).sendKeys(Keys.ENTER);
+        $(PASSWORD_INPUT_CSS_SELECTOR).pressEnter();
         return resultSubmitPassword();
     }
 
@@ -51,7 +51,7 @@ public class EnterPasswordPage extends BasePage {
         return $(PASSWORD_ERR_MSG_HOLDER_CSS_SELECTOR).getText();
     }
 
-    private <T extends BasePage> T resultSubmitPassword(){
+    private <T extends BasePage> T resultSubmitPassword() {
         //error msg appears with small delay. That why I must use Selenide.sleep(1000L)
         //I can't use any should() or shouldBe() assertion, because I don't know exactly whether error msg should be present on the page
         Selenide.sleep(1000L);
@@ -61,4 +61,10 @@ public class EnterPasswordPage extends BasePage {
             return (T) new HomePage();
         }
     }
+
+    @Step("EnterPasswordPage: Check if the 'Sign in' button is enabled")
+    public boolean isSignInButtonEnabled() {
+        return $(SIGN_IN_BUTTON_CSS_SELECTOR).attr("disabled")!=null ? false : true;
+    }
+
 }

@@ -339,5 +339,25 @@ public class SignInTest extends TestRunner {
                 .as("Error message should contain text 'Oops, that s not a match.'")
                 .isTrue();
     }
+
+    @Test(description = "Verify that the button 'Sign in' is disabled  when the field  'password' is empty")
+    @Description(value = "Verify that the button 'Sign in' is disabled  when the field  'password' is empty")
+    @TmsLink(value = "EBA-31")
+    public void verifyThatSignInButtonIsDisabledWhenPasswordIsEmpty() {
+        var enterPasswordPage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Enter password' page should be opened")
+                .isTrue();
+
+        assertThat(((EnterPasswordPage) enterPasswordPage).isSignInButtonEnabled())
+                .as("The 'Sign in' button should be disabled")
+                .isFalse();
+    }
 }
 
