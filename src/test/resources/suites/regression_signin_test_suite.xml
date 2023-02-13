@@ -16,6 +16,7 @@
                     <include name="verifyErrorMessageWhenInvalidEmail"/>
                     <include name="verifyErrorMessageWhenEmailOrUserNameBlank"/>
                     <include name="verifyErrorMessageWhenInvalidPassword"/>
+                    <include name="verifyThatSignInButtonIsDisabledWhenPasswordIsEmpty"/>
                 </methods>
             </class>
         </classes>
