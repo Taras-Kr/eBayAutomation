@@ -130,10 +130,10 @@ public class SignInTest extends TestRunner {
         assertThat(passwordPage instanceof EnterPasswordPage)
                 .as("'Password page should be opened'")
                 .isTrue();
-        ((EnterPasswordPage)passwordPage)
+        ((EnterPasswordPage) passwordPage)
                 .setPassword(credentialProperty.getValidPassword());
 
-        assertThat( ((EnterPasswordPage)passwordPage).getPasswordInputType())
+        assertThat(((EnterPasswordPage) passwordPage).getPasswordInputType())
                 .as("Password input type should has type 'password'")
                 .isEqualTo("password");
     }
@@ -226,6 +226,7 @@ public class SignInTest extends TestRunner {
                 WebDriverRunner.getWebDriver().manage().deleteCookie(cookie);
             }
         }
+
         Selenide.refresh();
 
         assertThat(header.isUserAccountButtonDisplayed())
@@ -294,7 +295,7 @@ public class SignInTest extends TestRunner {
     @Test(description = "Verify that the error message appears when an unlogged user leaves the field 'email or username' blank")
     @Description(value = "Verify that the error message appears when an unlogged user leaves the field 'email or username' blank")
     @TmsLink(value = "EBA-29")
-    public void verifyErrorMessageWhenEmailOrUserNameBlank(){
+    public void verifyErrorMessageWhenEmailOrUserNameBlank() {
         var enterEmailOrUserNamePage = new HomePage()
                 .open()
                 .getHeader()
@@ -305,10 +306,38 @@ public class SignInTest extends TestRunner {
                 .as("'Enter email or user name' should be opened")
                 .isTrue();
 
-        assertThat(((EnterEmailOrUserNamePage)enterEmailOrUserNamePage).getSignInErrMsg().contains("Oops, that's not a match."))
+        assertThat(((EnterEmailOrUserNamePage) enterEmailOrUserNamePage).getSignInErrMsg().contains("Oops, that's not a match."))
                 .as("Error message should contain text 'Oops, that's not a match.'")
                 .isTrue();
+    }
 
+    @Test(description = "Verify that the error message appears when an unlogged user enters an invalid password")
+    @Description(value = "Verify that the error message appears when an unlogged user enters an invalid password")
+    @TmsLink(value = "EBA-30")
+    public void verifyErrorMessageWhenInvalidPassword() {
+        var enterPasswordPage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Enter password' page should be opened")
+                .isTrue();
+
+        ((EnterPasswordPage) enterPasswordPage)
+                .setPassword(credentialProperty.getInvalidPassword())
+                .pressSignInButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Enter password' page should be opened")
+                .isTrue();
+
+        //On the website the message contains mistake. It should be 'Oops, that's not a match.'
+        assertThat(((EnterPasswordPage) enterPasswordPage).getErrorMessage().contains("Oops, that s not a match."))
+                .as("Error message should contain text 'Oops, that s not a match.'")
+                .isTrue();
     }
 }
 
