@@ -13,7 +13,7 @@ public class EnterEmailOrUserNamePage extends BasePage {
 
     private final String EMAIL_OR_USER_NAME_INPUT_CSS_SELECTOR = "input#userid";
     private final String STAY_SIGN_IN_CHECK_BOX_CSS_SELECTOR = "input#kmsi-checkbox";
-    private final String ERROR_SIGN_IN_MSG_HOLDER_CSS_SELECTOR = "p#signin-error-msg";
+    private final String SIGN_IN_ERR_MSG_HOLDER_CSS_SELECTOR = "p#signin-error-msg";
 
     @Step("UserNameSignInPage: Get header text")
     public String getHeaderText() {
@@ -42,34 +42,29 @@ public class EnterEmailOrUserNamePage extends BasePage {
     @Step("EnterEmailOrUserNamePage: Press 'Enter' in the field for enter email or user name ")
     public <T extends BasePage> T pressEnterInEmailOrUserNameInput() {
         $(EMAIL_OR_USER_NAME_INPUT_CSS_SELECTOR).sendKeys(Keys.ENTER);
-
-        //error msg appears with small delay. That why I must use Selenide.sleep(1000L)
-        //I can't use any should() or shouldBe() assertion, because I don't know exactly whether error msg should be present on the page
-        Selenide.sleep(1000L);
-        if ($(ERROR_SIGN_IN_MSG_HOLDER_CSS_SELECTOR).exists()) {
-            return (T) new EnterEmailOrUserNamePage();
-        } else {
-            return (T) new EnterPasswordPage();
-        }
+        return resultSubmitEmailOrUserName();
     }
 
     @Step("EnterEmailOrUserNamePage: Press the 'Continue' button")
     public <T extends BasePage> T pressContinueButton() {
         $("button#signin-continue-btn").click();
+        return resultSubmitEmailOrUserName();
+    }
 
+    private <T extends BasePage> T resultSubmitEmailOrUserName() {
         //error msg appears with small delay. That why I must use Selenide.sleep(1000L)
         //I can't use any should() or shouldBe() assertion, because I don't know exactly whether error msg should be present on the page
         Selenide.sleep(1000L);
-        if ($(ERROR_SIGN_IN_MSG_HOLDER_CSS_SELECTOR).exists()) {
-            return (T) new EnterEmailOrUserNamePage();
+        if ($(SIGN_IN_ERR_MSG_HOLDER_CSS_SELECTOR).exists()) {
+            return (T) this;
         } else {
             return (T) new EnterPasswordPage();
         }
     }
 
     public String getSignInErrMsg() {
-        if ($(ERROR_SIGN_IN_MSG_HOLDER_CSS_SELECTOR).isDisplayed()) {
-            return $(ERROR_SIGN_IN_MSG_HOLDER_CSS_SELECTOR).getText();
+        if ($(SIGN_IN_ERR_MSG_HOLDER_CSS_SELECTOR).isDisplayed()) {
+            return $(SIGN_IN_ERR_MSG_HOLDER_CSS_SELECTOR).getText();
         }
         return null;
     }

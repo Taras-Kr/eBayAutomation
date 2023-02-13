@@ -29,4 +29,8 @@ public class CredentialProperty {
         return credentialProperty.getProperty("INVALID_EMAIL");
     }
 
+    public String getInvalidPassword(){
+        return credentialProperty.getProperty("INVALID_PASSWORD");
+    }
+
 }
