@@ -1,7 +1,6 @@
 package com.taraskrasitskyi.ebay.utils;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
