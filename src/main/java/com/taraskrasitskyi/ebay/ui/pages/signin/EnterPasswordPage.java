@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.taraskrasitskyi.ebay.ui.pages.BasePage;
 import com.taraskrasitskyi.ebay.ui.pages.HomePage;
+import com.taraskrasitskyi.ebay.ui.pages.ResetPasswordPage;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -13,6 +14,7 @@ public class EnterPasswordPage extends BasePage {
     private final String PASSWORD_INPUT_CSS_SELECTOR = "input#pass";
     private final String PASSWORD_ERR_MSG_HOLDER_CSS_SELECTOR = "p#errormsg";
     private final String SIGN_IN_BUTTON_CSS_SELECTOR = "button#sgnBt";
+    private final String NEED_HELP_SIGNING_IN_LINK_CSS_SELECTOR = "a#need-help-signin-link";
 
     @Step("EnterPasswordPage: Set password")
     public EnterPasswordPage setPassword(String password) {
@@ -65,6 +67,17 @@ public class EnterPasswordPage extends BasePage {
     @Step("EnterPasswordPage: Check if the 'Sign in' button is enabled")
     public boolean isSignInButtonEnabled() {
         return $(SIGN_IN_BUTTON_CSS_SELECTOR).attr("disabled")!=null ? false : true;
+    }
+
+    @Step("EnterPasswordPage: Check if the 'Need help signing in help?' link is displayed")
+    public boolean isNeedHelpSigningInLinkDisplayed(){
+        return $(NEED_HELP_SIGNING_IN_LINK_CSS_SELECTOR).isDisplayed();
+    }
+
+    @Step("EnterPasswordPage: Open the 'Reset password' page")
+    public ResetPasswordPage openResetPasswordPage(){
+        $(NEED_HELP_SIGNING_IN_LINK_CSS_SELECTOR).click();
+        return new ResetPasswordPage();
     }
 
 }
