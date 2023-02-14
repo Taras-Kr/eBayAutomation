@@ -359,5 +359,42 @@ public class SignInTest extends TestRunner {
                 .as("The 'Sign in' button should be disabled")
                 .isFalse();
     }
+
+    @Test(description = "Verify that the 'Get help signing in' page opens when an unlogged user clicks on" +
+            " the 'Need help signing in?' link on the 'Enter password' page")
+    @Description(value = "Verify that the 'Get help signing in' page opens when an unlogged user clicks on" +
+            " the 'Need help signing in?' link on the 'Enter password' page")
+    @TmsLink(value = "EBA-32")
+    public void verifyThatUserCanOpenResetPasswordPage() {
+        var enterPasswordPage = new HomePage()
+                .open()
+                .getHeader()
+                .openEnterEmailOrUserNamePage()
+                .setEmailOrUserName(credentialProperty.getValidEmail())
+                .pressContinueButton();
+
+        assertThat(enterPasswordPage instanceof EnterPasswordPage)
+                .as("'Enter password' page should be opened")
+                .isTrue();
+
+        assertThat(((EnterPasswordPage) enterPasswordPage).isNeedHelpSigningInLinkDisplayed())
+                .as("The 'Need help signing in?' link should be displayed")
+                .isTrue();
+
+        var resetPasswordPage = ((EnterPasswordPage) enterPasswordPage).openResetPasswordPage();
+
+        assertThat(resetPasswordPage.getPageCaption())
+                .as("")
+                .isEqualTo("Get help signing in");
+        new HomePage();
+
+        assertThat(resetPasswordPage.isReceiveEmailButtonDisplayed())
+                .as("'Receive email' button should be displayed")
+                .isTrue();
+
+        assertThat(resetPasswordPage.isReceiveTextButtonDisplayed())
+                .as("'Receive text' button should be displayed")
+                .isTrue();
+    }
 }
 
